@@ -83,7 +83,7 @@
 (* Package definition                                         *)
 (**************************************************************)
 
-BeginPackage["AntonAntonov`MonadicLatentSemanticAnalysis`"];
+BeginPackage["AntonAntonov`MonadicLatentSemanticAnalysis`LSAMon`"];
 
 (*$LSAMonFailure::usage = "Failure symbol for the monad LSAMon.";*)
 
@@ -149,7 +149,7 @@ Needs["AntonAntonov`DataReshapers`"];
 Needs["AntonAntonov`DimensionReducers`"];
 Needs["AntonAntonov`SSparseMatrix`"];
 Needs["AntonAntonov`OutlierIdentifiers`"];
-Needs["AntonAntonov`MonadicLatentSemanticAnalysis`DocumentTermMatrixConstruction"];
+(*Needs["AntonAntonov`MonadicLatentSemanticAnalysis`DocumentTermMatrixConstruction"];*)
 
 (***********************************************************)
 (* Automatic keys Associations                             *)

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     26805,        698]
-NotebookOptionsPosition[     19274,        546]
-NotebookOutlinePosition[     20079,        572]
-CellTagsIndexPosition[     20000,        567]
+NotebookDataLength[     70289,       1679]
+NotebookOptionsPosition[     60954,       1488]
+NotebookOutlinePosition[     61796,       1515]
+CellTagsIndexPosition[     61716,       1510]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -24,9 +24,20 @@ Cell["LSAMonExtractTopics", "ObjectName",
  CellID->668152382,ExpressionUUID->"705bfe8e-221f-42d3-a99a-d7036c8829b6"],
 
 Cell[TextData[{
- Cell["   ", "ModInfo",ExpressionUUID->"912c946d-65b6-48a1-b7cc-53991a317a4e"],
- "Extract topics."
+ Cell["      ", "ModInfo",ExpressionUUID->
+  "376565bf-4bee-497e-aadb-cd4d97a415db"],
+ Cell[BoxData[
+  RowBox[{"LSAMonExtractTopics", "[", "n", "]"}]], "InlineFormula",
+  ExpressionUUID->"46dff1a1-bb4c-4cf3-b631-c916bd10c585"],
+ "\[LineSeparator]",
+ Cell["   ", "ModInfo",ExpressionUUID->"d6db98bb-7118-4144-b445-1a62ec970794"],
+ "Extract ",
+ Cell[BoxData[
+  StyleBox["n", "TI"]], "InlineFormula",ExpressionUUID->
+  "2548cc2a-0899-485c-bb68-ba1afa70fe2a"],
+ " topics."
 }], "Usage",
+ CellChangeTimes->{{3.893571666360237*^9, 3.8935716937565947`*^9}},
  CellID->445094111,ExpressionUUID->"e29cc427-37b1-47b4-be35-056f4ba667ad"],
 
 Cell["The following options can be given: ", "Notes",
@@ -37,7 +48,7 @@ Cell[BoxData[GridBox[{
      "860ef8dc-c9e3-4c55-a1e0-1004f1cab6bf"], "\"\<NumberOfTopics\>\"", 
     ButtonBox["None",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "Number of topics", "TableText",ExpressionUUID->
      "aeca082f-a1ef-40dc-9396-fc1ff54a79f6"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "22cc1f11-ac84-4f1b-84d3-df554753cb80"], 
@@ -49,45 +60,37 @@ what internal methods they should use.\
    {Cell["   ", "ModInfo",ExpressionUUID->
      "1158d402-c5e5-497a-9574-245e1ca386e2"], 
     "\"\<MinNumberOfDocumentsPerTerm\>\"", "10", Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "Min number of documents per term", "TableText",ExpressionUUID->
      "9b6cd0db-8aac-4047-8988-680bf0d78a30"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "35485d02-a2fe-4470-902f-f1e4d187f367"], 
     "\"\<NumberOfInitializingDocuments\>\"", "12", Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "Number of initializing documents", "TableText",ExpressionUUID->
      "f3250835-c83a-457a-b93a-23116b5a2fa6"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "fd3a83be-b0d1-4708-aa52-6c677018c551"], "\"\<OrderBySignificance\>\"", 
     ButtonBox["True",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
-     "3d2ef5a6-ae32-4c09-9dea-b6895d7d11dc"]},
+    "Whether the result topics be ordered by significance or not", 
+     "TableText",ExpressionUUID->"3d2ef5a6-ae32-4c09-9dea-b6895d7d11dc"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "c9c879e1-6c5c-498c-99f3-3fd03bff151c"], "\"\<InitialTopics\>\"", 
     ButtonBox["None",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "A list of initial topics", "TableText",ExpressionUUID->
      "3e30e881-a948-4ace-bd0c-02a0886a6492"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "899d2443-2f30-4a64-a6e8-f1addbcc2ab4"], 
     ButtonBox["Tolerance",
      BaseStyle->"Link"], 
-    RowBox[{"   ", 
-     RowBox[{"1", "\n", 
-      RowBox[{"--", 
-       RowBox[{"--", 
-        RowBox[{"--", 
-         RowBox[{"-", "\n", "1000000"}]}]}]}]}]}], Cell["\<\
+    RowBox[{"  ", "1.*^6"}], Cell["\<\
 Tolerance is an option for various numerical options which specifies the \
 tolerance that should be allowed in computing results.\
 \>", "TableText",ExpressionUUID->"e07e895d-65ed-4e03-9a21-801b0feade32"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "38aa179c-6d46-4847-9d74-46ef2a793821"], "\"\<Epsilon\>\"", 
-    RowBox[{"     ", 
-     RowBox[{
-      RowBox[{"-", "6"}], "\n", 
-      RowBox[{"1.", " ", "10"}]}]}], Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    RowBox[{" ", "1.*^6"}], Cell[
+    "Denominator (regularization) offset", "TableText",ExpressionUUID->
      "8be34800-7428-4cd6-afd6-6320fdff0d28"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "dc48e37e-331b-4995-bce0-69bbe346b8d9"], 
@@ -100,13 +103,13 @@ number of steps to take in generating a result.\
      "96528129-ece4-487a-b105-e85662de2b56"], "\"\<NonNegative\>\"", 
     ButtonBox["True",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
-     "3a87b190-fdbc-4b36-9d96-ab9f1f60d949"]},
+    "Whether non-negativity be enforced at each step or not", "TableText",
+     ExpressionUUID->"3a87b190-fdbc-4b36-9d96-ab9f1f60d949"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "1f7fccee-60dc-4210-8ae0-e133290bc6bf"], "\"\<Normalization\>\"", 
     ButtonBox["Left",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "Which factor to normalize", "TableText",ExpressionUUID->
      "2d3620e1-22d4-492b-919b-12e085a4e2a3"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "12e963b6-cce4-47f0-8569-b1ca6d2e68b7"], 
@@ -122,14 +125,17 @@ how many effective digits of precision should be sought in the final result. \
      "5e08f368-6d54-4a09-9253-c342e066daf4"], "\"\<ProfilingPrints\>\"", 
     ButtonBox["False",
      BaseStyle->"Link"], Cell[
-    "XXXX", "TableText",ExpressionUUID->
-     "82d8aaf1-412b-4ec2-a593-75baef6d19fb"]},
+    "Whether profiling times be printed outs during execution", "TableText",
+     ExpressionUUID->"82d8aaf1-412b-4ec2-a593-75baef6d19fb"]},
    {Cell["   ", "ModInfo",ExpressionUUID->
      "0ae0a89f-8c1d-4fdc-b683-c28a0514806d"], 
     "\"\<RegularizationParameter\>\"", "0.01", Cell[
-    "XXXX", "TableText",ExpressionUUID->
+    "Regularization (multiplier) parameter", "TableText",ExpressionUUID->
      "801beaac-bc27-49ec-83d7-3e446877dabe"]}
   }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.893571409253381*^9, 3.8935716494700108`*^9}, {
+  3.89357178163031*^9, 3.893571793764209*^9}, {3.893571838080801*^9, 
+  3.893571898960338*^9}},
  CellID->1882245621,ExpressionUUID->"185c43f8-bee1-44b4-84dc-000c235f578c"]
 }, Open  ]],
 
@@ -193,20 +199,44 @@ Cell[TextData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  TagBox[
-   FrameBox["\<\"XXXX\"\>"],
-   "FunctionPlaceholder"]], "InlineSeeAlsoFunction",
+  ButtonBox["LSAMonUnit",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/ref/LSAMonUnit"]], 
+  "InlineSeeAlsoFunction",
   TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
   "45ca1a01-2db3-4540-bcef-e3ad23624716"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoTopicsTable",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/ref/\
+LSAMonEchoTopicsTable"]], "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"05ebeca7-cc85-4bed-9aa6-bf17b828b2bf",ExpressionUUID->
+  "eeb79087-2b48-4e46-a9be-967f2eb8ea17"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonExtractStatisticalThesaurus",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/ref/\
+LSAMonExtractStatisticalThesaurus"]], "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"b41407af-ae1c-4a06-bb19-2e81efbead7c",ExpressionUUID->
+  "20bb25c7-9db4-4ac9-9e53-c4a84b18c976"],
  Cell[BoxData[
   RowBox[{
   Cell[TextData[StyleBox[
    " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
     "ec6998c0-5dda-46b5-9865-b23183810c37"], 
    DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
-     FrontEndObject[
-      LinkObject["hmt58_shm", 537, 6]], 17], $CellContext`cellobj$$ = 
-    CellObject[7121]}, 
+    "65ffb8e5-5ac3-4cbf-92c0-92dfaeb74e76", 
+     "100eee10-eeba-40fd-bf1d-706738a4e75e"], $CellContext`cellobj$$ = 
+    CellObject[
+    "ce2dd353-8d07-4bda-a67d-add4d18fa82f", 
+     "5a997638-9e87-4be5-84f5-4a58302a4332"]}, 
     TemplateBox[{
       GraphicsBox[{{
          Thickness[0.06], 
@@ -231,6 +261,7 @@ Cell[TextData[{
   "InlineListingAddButton",ExpressionUUID->
   "ce2dd353-8d07-4bda-a67d-add4d18fa82f"]
 }], "SeeAlso",
+ CellChangeTimes->{{3.893571704608883*^9, 3.893571763295003*^9}},
  CellID->1382487969,ExpressionUUID->"f5589872-5c9a-4757-8241-d519b0df601a"]
 }, Open  ]],
 
@@ -268,6 +299,8 @@ Cell[BoxData[
  CellID->782610619,ExpressionUUID->"071436bf-b53f-499c-bb3d-f3b64d210ee1"]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  InterpretationBox[GridBox[{
     {
@@ -281,6 +314,798 @@ Cell[BoxData[
    }],
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->2146819305,ExpressionUUID->"9e1b06bf-10ca-4c45-a945-9f3f843883ef"],
+
+Cell["Get USA presidents speeches:", "ExampleText",
+ TaggingRules->{},
+ CellChangeTimes->{{3.893348873895076*^9, 3.893348887494483*^9}},
+ CellID->834208600,ExpressionUUID->"c80db07e-9510-41ca-9904-01d8a536e84e"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"speeches", "=", 
+   RowBox[{"ResourceData", "[", 
+    RowBox[{
+    "ResourceObject", "[", 
+     "\"\<Presidential Nomination Acceptance Speeches\>\"", "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"texts", "=", 
+   RowBox[{"Normal", "[", 
+    RowBox[{"speeches", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "\"\<Text\>\""}], "]"}], "]"}], "]"}]}], 
+  ";"}]}], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8933488718714733`*^9, 3.89334889154818*^9}},
+ CellLabel->"In[6]:=",
+ CellID->210108724,ExpressionUUID->"cb258e7d-7bdc-4008-b88b-e383b3290ed9"],
+
+Cell["\<\
+Make the document-term matrix, extract topics, extract statistical thesaurus:\
+\
+\>", "ExampleText",
+ TaggingRules->{},
+ CellChangeTimes->{{3.893349027911332*^9, 3.893349030169619*^9}, {
+  3.893572270302957*^9, 3.893572296076552*^9}},
+ CellID->1154387338,ExpressionUUID->"e5d8324f-8e6a-4209-a31f-e13d3a5976ce"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"res", "=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"LSAMonUnit", "[", "texts", "]"}], "\[DoubleLongRightArrow]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"LSAMonMakeDocumentTermMatrix", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", "Automatic"}], "]"}], 
+    "\[DoubleLongRightArrow]", "\[IndentingNewLine]", 
+    "LSAMonApplyTermWeightFunctions", "\[DoubleLongRightArrow]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"LSAMonExtractTopics", "[", 
+     RowBox[{"12", ",", 
+      RowBox[{"Method", "->", "\"\<SVD\>\""}]}], "]"}], 
+    "\[DoubleLongRightArrow]", "\[IndentingNewLine]", 
+    RowBox[{"LSAMonEchoTopicsTable", "[", 
+     RowBox[{"Dividers", "->", "All"}], "]"}], "\[DoubleLongRightArrow]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"LSAMonExtractStatisticalThesaurus", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<war\>\"", ",", "\"\<nuclear\>\"", ",", "\"\<health\>\""}],
+        "}"}], ",", "10"}], "]"}], "\[DoubleLongRightArrow]", 
+    "LSAMonEchoStatisticalThesaurusTable"}]}], ";"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8933490188901653`*^9, 3.893349064643145*^9}, {
+  3.893539709141283*^9, 3.893539728321814*^9}, {3.893571953413323*^9, 
+  3.8935720069756823`*^9}, {3.8935720452757807`*^9, 3.893572240378721*^9}},
+ CellLabel->"In[22]:=",
+ CellID->2009046217,ExpressionUUID->"1134d60c-b9f7-4684-93e1-a2f940be6f4f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"topics table:\"\>",
+   "EchoLabel"], "  ", 
+  StyleBox[
+   TagBox[GridBox[{
+      {
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["1",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"jobs\"\>"},
+              {"\<\"0.980\"\>", "\<\"tonight\"\>"},
+              {"\<\"0.819\"\>", "\<\"america\"\>"},
+              {"\<\"0.768\"\>", "\<\"tax\"\>"},
+              {"\<\"0.726\"\>", "\<\"don\"\>"},
+              {"\<\"0.688\"\>", "\<\"going\"\>"},
+              {"\<\"0.687\"\>", "\<\"shall\"\>"},
+              {"\<\"0.656\"\>", "\<\"values\"\>"},
+              {"\<\"0.650\"\>", "\<\"americans\"\>"},
+              {"\<\"0.640\"\>", "\<\"child\"\>"},
+              {"\<\"0.633\"\>", "\<\"vietnam\"\>"},
+              {"\<\"0.624\"\>", "\<\"let\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[1, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "jobs"}, {
+             NumberForm[0.9795236125603152, {4, 3}], "tonight"}, {
+             NumberForm[0.8189529994719067, {4, 3}], "america"}, {
+             NumberForm[0.7684290530661063, {4, 3}], "tax"}, {
+             NumberForm[0.7259898853945134, {4, 3}], "don"}, {
+             NumberForm[0.6876177596387989, {4, 3}], "going"}, {
+             NumberForm[0.6873362373991545, {4, 3}], "shall"}, {
+             NumberForm[0.6557657344633634, {4, 3}], "values"}, {
+             NumberForm[0.6502726896677925, {4, 3}], "americans"}, {
+             NumberForm[0.6404649826202432, {4, 3}], "child"}, {
+             NumberForm[0.6331868211869071, {4, 3}], "vietnam"}, {
+             NumberForm[0.6240897217957072, {4, 3}], "let"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["4",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"democracy\"\>"},
+              {"\<\"-0.993\"\>", "\<\"law\"\>"},
+              {"\<\"-0.971\"\>", "\<\"vietnam\"\>"},
+              {"\<\"0.964\"\>", "\<\"tyranny\"\>"},
+              {"\<\"-0.910\"\>", "\<\"tonight\"\>"},
+              {"\<\"-0.882\"\>", "\<\"increased\"\>"},
+              {"\<\"-0.856\"\>", "\<\"crime\"\>"},
+              {"\<\"0.824\"\>", "\<\"modern\"\>"},
+              {"\<\"0.816\"\>", "\<\"plans\"\>"},
+              {"\<\"-0.787\"\>", "\<\"duties\"\>"},
+              {"\<\"0.729\"\>", "\<\"task\"\>"},
+              {"\<\"-0.724\"\>", "\<\"bill\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[4, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "democracy"}, {
+             NumberForm[-0.9934465987390666, {4, 3}], "law"}, {
+             NumberForm[-0.9711644949662789, {4, 3}], "vietnam"}, {
+             NumberForm[0.9636256357023202, {4, 3}], "tyranny"}, {
+             NumberForm[-0.9104809837517569, {4, 3}], "tonight"}, {
+             NumberForm[-0.881930762808556, {4, 3}], "increased"}, {
+             NumberForm[-0.8556975137445779, {4, 3}], "crime"}, {
+             NumberForm[0.8241661866951813, {4, 3}], "modern"}, {
+             NumberForm[0.8162981045174864, {4, 3}], "plans"}, {
+             NumberForm[-0.7867241989570329, {4, 3}], "duties"}, {
+             NumberForm[0.7291981203932622, {4, 3}], "task"}, {
+             NumberForm[-0.723745093928053, {4, 3}], "bill"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["7",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"reagan\"\>"},
+              {"\<\"-0.596\"\>", "\<\"inflation\"\>"},
+              {"\<\"-0.477\"\>", "\<\"spending\"\>"},
+              {"\<\"0.466\"\>", "\<\"values\"\>"},
+              {"\<\"0.462\"\>", "\<\"eight\"\>"},
+              {"\<\"0.451\"\>", "\<\"answer\"\>"},
+              {"\<\"0.446\"\>", "\<\"decade\"\>"},
+              {"\<\"0.411\"\>", "\<\"mother\"\>"},
+              {"\<\"-0.408\"\>", "\<\"path\"\>"},
+              {"\<\"-0.379\"\>", "\<\"opponent\"\>"},
+              {"\<\"0.376\"\>", "\<\"revolution\"\>"},
+              {"\<\"0.373\"\>", "\<\"black\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[7, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "reagan"}, {
+             NumberForm[-0.5962038302580026, {4, 3}], "inflation"}, {
+             NumberForm[-0.47713235215819394`, {4, 3}], "spending"}, {
+             NumberForm[0.4661040435664771, {4, 3}], "values"}, {
+             NumberForm[0.46189691917314873`, {4, 3}], "eight"}, {
+             NumberForm[0.45129118290965103`, {4, 3}], "answer"}, {
+             NumberForm[0.44630648531865574`, {4, 3}], "decade"}, {
+             NumberForm[0.4111232017325264, {4, 3}], "mother"}, {
+             NumberForm[-0.4080181385497486, {4, 3}], "path"}, {
+             NumberForm[-0.379461802184012, {4, 3}], "opponent"}, {
+             NumberForm[0.3764851337789083, {4, 3}], "revolution"}, {
+             NumberForm[0.37349479364464866`, {4, 3}], "black"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["10",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"path\"\>"},
+              {"\<\"0.771\"\>", "\<\"workers\"\>"},
+              {"\<\"0.637\"\>", "\<\"vietnam\"\>"},
+              {"\<\"-0.573\"\>", "\<\"crusade\"\>"},
+              {"\<\"-0.568\"\>", "\<\"bill\"\>"},
+              {"\<\"-0.561\"\>", "\<\"housing\"\>"},
+              {"\<\"-0.557\"\>", "\<\"drugs\"\>"},
+              {"\<\"-0.552\"\>", "\<\"democratic\"\>"},
+              {"\<\"-0.548\"\>", "\<\"inflation\"\>"},
+              {"\<\"0.526\"\>", "\<\"hopeful\"\>"},
+              {"\<\"-0.497\"\>", "\<\"gentlemen\"\>"},
+              {"\<\"0.489\"\>", "\<\"term\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[10, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "path"}, {
+             NumberForm[0.7712545720860318, {4, 3}], "workers"}, {
+             NumberForm[0.6367605714050498, {4, 3}], "vietnam"}, {
+             NumberForm[-0.5730604799893598, {4, 3}], "crusade"}, {
+             NumberForm[-0.5675328874295319, {4, 3}], "bill"}, {
+             NumberForm[-0.5611206135476687, {4, 3}], "housing"}, {
+             NumberForm[-0.5567764252261367, {4, 3}], "drugs"}, {
+             NumberForm[-0.5519539387626338, {4, 3}], "democratic"}, {
+             NumberForm[-0.5481356418890456, {4, 3}], "inflation"}, {
+             NumberForm[0.5263786933077794, {4, 3}], "hopeful"}, {
+             NumberForm[-0.49737596731964534`, {4, 3}], "gentlemen"}, {
+             NumberForm[0.48905454919575686`, {4, 3}], "term"}}]}],
+        Editable->False]},
+      {
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["2",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"jobs\"\>"},
+              {"\<\"-0.926\"\>", "\<\"shall\"\>"},
+              {"\<\"0.714\"\>", "\<\"don\"\>"},
+              {"\<\"0.639\"\>", "\<\"parents\"\>"},
+              {"\<\"-0.626\"\>", "\<\"agriculture\"\>"},
+              {"\<\"-0.618\"\>", "\<\"legislation\"\>"},
+              {"\<\"0.616\"\>", "\<\"college\"\>"},
+              {"\<\"-0.570\"\>", "\<\"present\"\>"},
+              {"\<\"-0.565\"\>", "\<\"duties\"\>"},
+              {"\<\"0.560\"\>", "\<\"reagan\"\>"},
+              {"\<\"0.557\"\>", "\<\"opponent\"\>"},
+              {"\<\"-0.555\"\>", "\<\"principle\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[2, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "jobs"}, {
+             NumberForm[-0.9262117715558383, {4, 3}], "shall"}, {
+             NumberForm[0.7143797433652883, {4, 3}], "don"}, {
+             NumberForm[0.6391947692084343, {4, 3}], "parents"}, {
+             NumberForm[-0.6255194398159245, {4, 3}], "agriculture"}, {
+             NumberForm[-0.6176791180611095, {4, 3}], "legislation"}, {
+             NumberForm[0.6163443435365068, {4, 3}], "college"}, {
+             NumberForm[-0.5699991529881282, {4, 3}], "present"}, {
+             NumberForm[-0.565483017987022, {4, 3}], "duties"}, {
+             NumberForm[0.5604485989926501, {4, 3}], "reagan"}, {
+             NumberForm[0.5569939182000746, {4, 3}], "opponent"}, {
+             NumberForm[-0.5553904891030719, {4, 3}], "principle"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["5",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"reagan\"\>"},
+              {"\<\"0.609\"\>", "\<\"decade\"\>"},
+              {"\<\"0.484\"\>", "\<\"vote\"\>"},
+              {"\<\"0.446\"\>", "\<\"start\"\>"},
+              {"\<\"0.365\"\>", "\<\"deficit\"\>"},
+              {"\<\"-0.360\"\>", "\<\"child\"\>"},
+              {"\<\"0.341\"\>", "\<\"inflation\"\>"},
+              {"\<\"-0.331\"\>", "\<\"college\"\>"},
+              {"\<\"0.308\"\>", "\<\"spending\"\>"},
+              {"\<\"0.302\"\>", "\<\"soviet\"\>"},
+              {"\<\"0.300\"\>", "\<\"destroy\"\>"},
+              {"\<\"0.298\"\>", "\<\"message\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[5, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "reagan"}, {
+             NumberForm[0.6093608562188588, {4, 3}], "decade"}, {
+             NumberForm[0.4840391824900419, {4, 3}], "vote"}, {
+             NumberForm[0.4460616994249165, {4, 3}], "start"}, {
+             NumberForm[0.36482714876192895`, {4, 3}], "deficit"}, {
+             NumberForm[-0.3604603223872637, {4, 3}], "child"}, {
+             NumberForm[0.34101201600952746`, {4, 3}], "inflation"}, {
+             NumberForm[-0.3314924727192648, {4, 3}], "college"}, {
+             NumberForm[0.30775240009402044`, {4, 3}], "spending"}, {
+             NumberForm[0.30239020241029, {4, 3}], "soviet"}, {
+             NumberForm[0.2995092505622552, {4, 3}], "destroy"}, {
+             NumberForm[0.2982540647139299, {4, 3}], "message"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["8",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"vietnam\"\>"},
+              {"\<\"0.515\"\>", "\<\"tradition\"\>"},
+              {"\<\"-0.384\"\>", "\<\"goals\"\>"},
+              {"\<\"-0.356\"\>", "\<\"housing\"\>"},
+              {"\<\"0.344\"\>", "\<\"winning\"\>"},
+              {"\<\"0.329\"\>", "\<\"debate\"\>"},
+              {"\<\"0.327\"\>", "\<\"modern\"\>"},
+              {"\<\"-0.320\"\>", "\<\"tonight\"\>"},
+              {"\<\"0.312\"\>", "\<\"week\"\>"},
+              {"\<\"0.289\"\>", "\<\"democracy\"\>"},
+              {"\<\"0.284\"\>", "\<\"yes\"\>"},
+              {"\<\"-0.274\"\>", "\<\"problem\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[8, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "vietnam"}, {
+             NumberForm[0.5151770460671921, {4, 3}], "tradition"}, {
+             NumberForm[-0.3842505643537525, {4, 3}], "goals"}, {
+             NumberForm[-0.3562262465845156, {4, 3}], "housing"}, {
+             NumberForm[0.34403668826348566`, {4, 3}], "winning"}, {
+             NumberForm[0.3289146877962386, {4, 3}], "debate"}, {
+             NumberForm[0.32669461742493744`, {4, 3}], "modern"}, {
+             NumberForm[-0.3203953343770403, {4, 3}], "tonight"}, {
+             NumberForm[0.31181283401137466`, {4, 3}], "week"}, {
+             NumberForm[0.2885137925575311, {4, 3}], "democracy"}, {
+             NumberForm[0.2843274091981783, {4, 3}], "yes"}, {
+             NumberForm[-0.27370179318060817`, {4, 3}], "problem"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["11",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"groups\"\>"},
+              {"\<\"0.978\"\>", "\<\"george\"\>"},
+              {"\<\"-0.925\"\>", "\<\"unity\"\>"},
+              {"\<\"0.886\"\>", "\<\"eight\"\>"},
+              {"\<\"-0.829\"\>", "\<\"problem\"\>"},
+              {"\<\"0.758\"\>", "\<\"surplus\"\>"},
+              {"\<\"0.678\"\>", "\<\"opponent\"\>"},
+              {"\<\"-0.663\"\>", "\<\"task\"\>"},
+              {"\<\"0.657\"\>", "\<\"goals\"\>"},
+              {"\<\"0.644\"\>", "\<\"wall\"\>"},
+              {"\<\"0.639\"\>", "\<\"path\"\>"},
+              {"\<\"-0.615\"\>", "\<\"fight\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[11, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "groups"}, {
+             NumberForm[0.977821426482438, {4, 3}], "george"}, {
+             NumberForm[-0.9248960600093277, {4, 3}], "unity"}, {
+             NumberForm[0.885992571553744, {4, 3}], "eight"}, {
+             NumberForm[-0.8285179242207901, {4, 3}], "problem"}, {
+             NumberForm[0.7578081061368601, {4, 3}], "surplus"}, {
+             NumberForm[0.6784742239497495, {4, 3}], "opponent"}, {
+             NumberForm[-0.6634486463912551, {4, 3}], "task"}, {
+             NumberForm[0.6572151918395381, {4, 3}], "goals"}, {
+             NumberForm[0.6443479326967247, {4, 3}], "wall"}, {
+             NumberForm[0.6388545680449537, {4, 3}], "path"}, {
+             NumberForm[-0.6153471124451653, {4, 3}], "fight"}}]}],
+        Editable->False]},
+      {
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["3",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"vietnam\"\>"},
+              {"\<\"0.890\"\>", "\<\"tonight\"\>"},
+              {"\<\"0.768\"\>", "\<\"goals\"\>"},
+              {"\<\"0.573\"\>", "\<\"answer\"\>"},
+              {"\<\"0.539\"\>", "\<\"dream\"\>"},
+              {"\<\"0.530\"\>", "\<\"eisenhower\"\>"},
+              {"\<\"0.503\"\>", "\<\"let\"\>"},
+              {"\<\"-0.496\"\>", "\<\"products\"\>"},
+              {"\<\"-0.487\"\>", "\<\"jobs\"\>"},
+              {"\<\"0.474\"\>", "\<\"seek\"\>"},
+              {"\<\"0.461\"\>", "\<\"kennedy\"\>"},
+              {"\<\"0.458\"\>", "\<\"tradition\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[3, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "vietnam"}, {
+             NumberForm[0.8896279419826285, {4, 3}], "tonight"}, {
+             NumberForm[0.767905191084486, {4, 3}], "goals"}, {
+             NumberForm[0.5727958686712172, {4, 3}], "answer"}, {
+             NumberForm[0.538676097869592, {4, 3}], "dream"}, {
+             NumberForm[0.5302207974380184, {4, 3}], "eisenhower"}, {
+             NumberForm[0.5030792806264288, {4, 3}], "let"}, {
+             NumberForm[-0.4957752876821614, {4, 3}], "products"}, {
+             NumberForm[-0.4867971693797405, {4, 3}], "jobs"}, {
+             NumberForm[0.4743011344718075, {4, 3}], "seek"}, {
+             NumberForm[0.46135205691973963`, {4, 3}], "kennedy"}, {
+             NumberForm[0.4578960108409316, {4, 3}], "tradition"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["6",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"goals\"\>"},
+              {"\<\"0.956\"\>", "\<\"kennedy\"\>"},
+              {"\<\"0.772\"\>", "\<\"john\"\>"},
+              {"\<\"-0.690\"\>", "\<\"opponent\"\>"},
+              {"\<\"0.658\"\>", "\<\"quality\"\>"},
+              {"\<\"0.605\"\>", "\<\"tonight\"\>"},
+              {"\<\"-0.600\"\>", "\<\"answer\"\>"},
+              {"\<\"-0.555\"\>", "\<\"spending\"\>"},
+              {"\<\"0.535\"\>", "\<\"reagan\"\>"},
+              {"\<\"-0.521\"\>", "\<\"programs\"\>"},
+              {"\<\"0.519\"\>", "\<\"law\"\>"},
+              {"\<\"-0.506\"\>", "\<\"harder\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[6, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "goals"}, {
+             NumberForm[0.9559273615296665, {4, 3}], "kennedy"}, {
+             NumberForm[0.7724794204114427, {4, 3}], "john"}, {
+             NumberForm[-0.6902176924713976, {4, 3}], "opponent"}, {
+             NumberForm[0.6583637457913931, {4, 3}], "quality"}, {
+             NumberForm[0.605171011498498, {4, 3}], "tonight"}, {
+             NumberForm[-0.5997334915400249, {4, 3}], "answer"}, {
+             NumberForm[-0.5545058359811156, {4, 3}], "spending"}, {
+             NumberForm[0.5352312847116547, {4, 3}], "reagan"}, {
+             NumberForm[-0.5206320817785105, {4, 3}], "programs"}, {
+             NumberForm[0.5186506201171581, {4, 3}], "law"}, {
+             NumberForm[-0.5059363552771854, {4, 3}], "harder"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["9",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"opponent\"\>"},
+              {"\<\"-0.706\"\>", "\<\"groups\"\>"},
+              {"\<\"-0.685\"\>", "\<\"agriculture\"\>"},
+              {"\<\"0.628\"\>", "\<\"vietnam\"\>"},
+              {"\<\"0.620\"\>", "\<\"congress\"\>"},
+              {"\<\"0.579\"\>", "\<\"differences\"\>"},
+              {"\<\"-0.563\"\>", "\<\"values\"\>"},
+              {"\<\"0.560\"\>", "\<\"debate\"\>"},
+              {"\<\"0.557\"\>", "\<\"don\"\>"},
+              {"\<\"-0.543\"\>", "\<\"federal\"\>"},
+              {"\<\"-0.542\"\>", "\<\"economic\"\>"},
+              {"\<\"0.532\"\>", "\<\"appeal\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[9, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "opponent"}, {
+             NumberForm[-0.706462998865722, {4, 3}], "groups"}, {
+             NumberForm[-0.6851101093588928, {4, 3}], "agriculture"}, {
+             NumberForm[0.6275734428921409, {4, 3}], "vietnam"}, {
+             NumberForm[0.6201979044201061, {4, 3}], "congress"}, {
+             NumberForm[0.5788305053817371, {4, 3}], "differences"}, {
+             NumberForm[-0.56263523849858, {4, 3}], "values"}, {
+             NumberForm[0.5595688453055949, {4, 3}], "debate"}, {
+             NumberForm[0.5566000247637929, {4, 3}], "don"}, {
+             NumberForm[-0.5427743032489403, {4, 3}], "federal"}, {
+             NumberForm[-0.5415659625162442, {4, 3}], "economic"}, {
+             NumberForm[0.5319453353759689, {4, 3}], "appeal"}}]}],
+        Editable->False], 
+       InterpretationBox[GridBox[{
+          {
+           StyleBox["12",
+            StripOnInput->False,
+            LineColor->RGBColor[1, 0, 0],
+            FrontFaceColor->RGBColor[1, 0, 0],
+            BackFaceColor->RGBColor[1, 0, 0],
+            GraphicsColor->RGBColor[1, 0, 0],
+            FontColor->RGBColor[1, 0, 0]]},
+          {
+           TagBox[GridBox[{
+              {"\<\"1.000\"\>", "\<\"decide\"\>"},
+              {"\<\"-0.559\"\>", "\<\"unity\"\>"},
+              {"\<\"0.472\"\>", "\<\"opponent\"\>"},
+              {"\<\"0.440\"\>", "\<\"democracy\"\>"},
+              {"\<\"0.433\"\>", "\<\"modern\"\>"},
+              {"\<\"-0.418\"\>", "\<\"measures\"\>"},
+              {"\<\"0.418\"\>", "\<\"going\"\>"},
+              {"\<\"-0.412\"\>", "\<\"historic\"\>"},
+              {"\<\"0.407\"\>", "\<\"says\"\>"},
+              {"\<\"0.381\"\>", "\<\"tyranny\"\>"},
+              {"\<\"0.381\"\>", "\<\"example\"\>"},
+              {"\<\"0.375\"\>", "\<\"started\"\>"}
+             },
+             GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[2.0999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}}],
+            Function[BoxForm`e$, 
+             TableForm[BoxForm`e$]]]}
+         },
+         BaselinePosition->{Baseline, {1, 1}},
+         GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+        ColumnForm[{
+          Style[12, 
+           RGBColor[1, 0, 0]], 
+          TableForm[{{
+             NumberForm[1., {4, 3}], "decide"}, {
+             NumberForm[-0.5594488889609345, {4, 3}], "unity"}, {
+             NumberForm[0.4716210675505595, {4, 3}], "opponent"}, {
+             NumberForm[0.4398605075655805, {4, 3}], "democracy"}, {
+             NumberForm[0.4325310980974947, {4, 3}], "modern"}, {
+             NumberForm[-0.41846224806708593`, {4, 3}], "measures"}, {
+             NumberForm[0.41840019503299086`, {4, 3}], "going"}, {
+             NumberForm[-0.4117903824224682, {4, 3}], "historic"}, {
+             NumberForm[0.4065837660688978, {4, 3}], "says"}, {
+             NumberForm[0.3814368307995941, {4, 3}], "tyranny"}, {
+             NumberForm[0.3805401805131099, {4, 3}], "example"}, {
+             NumberForm[0.3751524400324716, {4, 3}], "started"}}]}],
+        Editable->False]}
+     },
+     AutoDelete->False,
+     GridBoxAlignment->{"Columns" -> {{Left}}},
+     GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+     GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+    "Grid"],
+   StripOnInput->False,
+   Magnification->0.8 Inherited]}]], "Echo",
+ CellChangeTimes->{3.8935722415638437`*^9},
+ CellID->1427357690,ExpressionUUID->"f6ae3cb3-2e83-4405-a488-5404f5b5af91"],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox["\<\"statistical thesaurus:\"\>",
+   "EchoLabel"], "  ", 
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"term\"\>",
+       StripOnInput->False,
+       LineColor->RGBColor[0, 0, 1],
+       FrontFaceColor->RGBColor[0, 0, 1],
+       BackFaceColor->RGBColor[0, 0, 1],
+       GraphicsColor->RGBColor[0, 0, 1],
+       FontFamily->"Times",
+       FontColor->RGBColor[0, 0, 1]], 
+      StyleBox["\<\"statistical thesaurus entries\"\>",
+       StripOnInput->False,
+       LineColor->RGBColor[0, 0, 1],
+       FrontFaceColor->RGBColor[0, 0, 1],
+       BackFaceColor->RGBColor[0, 0, 1],
+       GraphicsColor->RGBColor[0, 0, 1],
+       FontFamily->"Times",
+       FontColor->RGBColor[0, 0, 1]]},
+     {"\<\"health\"\>", 
+      RowBox[{"{", 
+       RowBox[{"\<\"health\"\>", ",", "\<\"middle\"\>", 
+        ",", "\<\"companies\"\>", ",", "\<\"care\"\>", 
+        ",", "\<\"families\"\>", ",", "\<\"insurance\"\>", 
+        ",", "\<\"doesn\"\>", ",", "\<\"college\"\>", ",", "\<\"medicare\"\>",
+         ",", "\<\"bless\"\>"}], "}"}]},
+     {"\<\"nuclear\"\>", 
+      RowBox[{"{", 
+       RowBox[{"\<\"nuclear\"\>", ",", "\<\"weapons\"\>", ",", "\<\"seen\"\>",
+         ",", "\<\"truman\"\>", ",", "\<\"learned\"\>", 
+        ",", "\<\"democrats\"\>", ",", "\<\"want\"\>", ",", "\<\"race\"\>", 
+        ",", "\<\"harry\"\>", ",", "\<\"work\"\>"}], "}"}]},
+     {"\<\"war\"\>", 
+      RowBox[{"{", 
+       RowBox[{"\<\"war\"\>", ",", "\<\"world\"\>", ",", "\<\"far\"\>", 
+        ",", "\<\"come\"\>", ",", "\<\"makes\"\>", ",", "\<\"enjoy\"\>", 
+        ",", "\<\"past\"\>", ",", "\<\"god\"\>", ",", "\<\"dedicated\"\>", 
+        ",", "\<\"understood\"\>"}], "}"}]}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{0.75}}}],
+   "Grid"]}]], "Echo",
+ CellChangeTimes->{3.893572241581024*^9},
+ CellID->60875193,ExpressionUUID->"3b0c6e8b-31af-43c2-837c-feadcffe4b87"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -406,12 +1231,129 @@ Cell[BoxData[
   $Line = 0; Null]], "ExampleSubsection",
  CellID->1599750894,ExpressionUUID->"a378eadd-6217-4277-b002-e3894ef16645"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  InterpretationBox[Cell[
   "\"ProfilingPrints\"", "ExampleSubsection",ExpressionUUID->
    "692e2206-6848-419c-b12e-7e53b31806de"],
   $Line = 0; Null]], "ExampleSubsection",
  CellID->518015018,ExpressionUUID->"22f10772-bf8b-453b-9828-99ada6c560bf"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"res", "=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"LSAMonUnit", "[", "texts", "]"}], "\[DoubleLongRightArrow]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"LSAMonMakeDocumentTermMatrix", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", "Automatic"}], "]"}], 
+    "\[DoubleLongRightArrow]", "\[IndentingNewLine]", 
+    RowBox[{"LSAMonApplyTermWeightFunctions", "[", "]"}], 
+    "\[DoubleLongRightArrow]", "\[IndentingNewLine]", 
+    RowBox[{"LSAMonExtractTopics", "[", 
+     RowBox[{
+      RowBox[{"\"\<MinNumberOfDocumentsPerTerm\>\"", "->", "5"}], ",", 
+      RowBox[{"\"\<NumberOfTopics\>\"", "->", "20"}], ",", 
+      RowBox[{"Method", "->", "\"\<NNMF\>\""}], ",", 
+      RowBox[{"\"\<MaxSteps\>\"", "->", "6"}], ",", 
+      RowBox[{"\"\<ProfilingPrints\>\"", "->", "True"}]}], "]"}]}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.893572032592008*^9, 3.893572033153779*^9}},
+ CellLabel->"In[10]:=",
+ CellID->1607866211,ExpressionUUID->"9b54d20b-9f3d-4b6a-b1c9-9d2ce03da271"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"1", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.081399`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.8317343918988154`"}],
+  SequenceForm[
+  1, " ", {0.081399, Null}, " relative error=", 0.8317343918988154],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.893572034938302*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->1762514928,ExpressionUUID->"0cfc530c-704f-485a-adc6-f2aa5f9d4388"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"2", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.081268`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.7658210206828777`"}],
+  SequenceForm[
+  2, " ", {0.081268, Null}, " relative error=", 0.7658210206828777],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.893572035026412*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->198968178,ExpressionUUID->"1faa69ce-a244-488d-a964-46b387eca2ce"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"3", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.08145`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.7251925784555572`"}],
+  SequenceForm[
+  3, " ", {0.08145, Null}, " relative error=", 0.7251925784555572],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.893572035115328*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->426129267,ExpressionUUID->"d7a1f08c-3906-47ac-bb37-98cb40bfeccb"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"4", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.081537`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.7003075374109347`"}],
+  SequenceForm[
+  4, " ", {0.081537, Null}, " relative error=", 0.7003075374109347],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.8935720352050962`*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->96627724,ExpressionUUID->"4e73f6ea-367b-460b-a0da-2c04964f397e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"5", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.081227`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.6837722919530106`"}],
+  SequenceForm[
+  5, " ", {0.081227, Null}, " relative error=", 0.6837722919530106],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.89357203529397*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->524520136,ExpressionUUID->"270ce4c4-e6e1-419e-97fd-1d161b458dd7"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"6", "\[InvisibleSpace]", "\<\" \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0.081661`", ",", "Null"}], "}"}], 
+   "\[InvisibleSpace]", "\<\" relative error=\"\>", "\[InvisibleSpace]", 
+   "0.6734522957603194`"}],
+  SequenceForm[
+  6, " ", {0.081661, Null}, " relative error=", 0.6734522957603194],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.8935720353831167`*^9},
+ CellLabel->"During evaluation of In[10]:=",
+ CellID->189554817,ExpressionUUID->"93fe7a59-55a5-4a27-8462-dbdfedab8de3"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[Cell[
@@ -464,7 +1406,7 @@ Cell["Metadata", "MetadataSection",
 
 Cell[TextData[{
  "New in: ",
- Cell["XX", "HistoryData",
+ Cell["1.0.0", "HistoryData",
   CellTags->"New",ExpressionUUID->"2368c586-0aea-4331-8414-f1426a0f0de0"],
  " | Modified in: ",
  Cell[" ", "HistoryData",
@@ -544,10 +1486,11 @@ Cell[BoxData[""], "Template",
 }, Closed]]
 }, Open  ]]
 },
-WindowSize->{700, 770},
-WindowMargins->{{5, Automatic}, {Automatic, 0}},
+WindowSize->{1515, 1094},
+WindowMargins->{{Automatic, 890}, {Automatic, 9}},
 TaggingRules-><|"Paclet" -> "AntonAntonov/MonadicLatentSemanticAnalysis"|>,
 CellContext->"Global`",
+Magnification:>1.25 Inherited,
 FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb", 
   CharacterEncoding -> "UTF-8"],
@@ -559,150 +1502,186 @@ ExpressionUUID->"65ffb8e5-5ac3-4cbf-92c0-92dfaeb74e76"
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[10208, 286, 488, 13, 58, "ExtendedExamplesSection",ExpressionUUID->"bb7d7acd-cad2-4140-8540-daa129de5bbf",
+  Cell[47455, 1111, 488, 13, 72, "ExtendedExamplesSection",ExpressionUUID->"bb7d7acd-cad2-4140-8540-daa129de5bbf",
    CellTags->"ExtendedExamples",
    CellID->1719305888]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 19805, 560}
+ {"ExtendedExamples", 61520, 1503}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 116, 1, 74, "ObjectName",ExpressionUUID->"705bfe8e-221f-42d3-a99a-d7036c8829b6",
+Cell[580, 22, 116, 1, 92, "ObjectName",ExpressionUUID->"705bfe8e-221f-42d3-a99a-d7036c8829b6",
  CellID->668152382],
-Cell[699, 25, 202, 4, 61, "Usage",ExpressionUUID->"e29cc427-37b1-47b4-be35-056f4ba667ad",
+Cell[699, 25, 640, 15, 99, "Usage",ExpressionUUID->"e29cc427-37b1-47b4-be35-056f4ba667ad",
  CellID->445094111],
-Cell[904, 31, 129, 1, 27, "Notes",ExpressionUUID->"e2286286-b9dc-48e8-891a-d5f39587d49f",
+Cell[1342, 42, 129, 1, 33, "Notes",ExpressionUUID->"e2286286-b9dc-48e8-891a-d5f39587d49f",
  CellID->1011181076],
-Cell[1036, 34, 4357, 98, 501, "3ColumnTableMod",ExpressionUUID->"185c43f8-bee1-44b4-84dc-000c235f578c",
+Cell[1474, 45, 4641, 93, 661, "3ColumnTableMod",ExpressionUUID->"185c43f8-bee1-44b4-84dc-000c235f578c",
  CellID->1882245621]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5430, 137, 435, 12, 41, "TechNotesSection",ExpressionUUID->"f2f544cf-52e3-41d2-b4aa-7e49fb32ef29",
+Cell[6152, 143, 435, 12, 51, "TechNotesSection",ExpressionUUID->"f2f544cf-52e3-41d2-b4aa-7e49fb32ef29",
  CellID->320548190],
-Cell[5868, 151, 101, 1, 19, "Tutorials",ExpressionUUID->"4c2a1c94-b914-4ffe-9a9c-c9e2d5468522",
+Cell[6590, 157, 101, 1, 24, "Tutorials",ExpressionUUID->"4c2a1c94-b914-4ffe-9a9c-c9e2d5468522",
  CellID->1564442654]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6006, 157, 473, 13, 40, "RelatedLinksSection",ExpressionUUID->"613e61b1-2a3e-4430-861a-7021eb974a1d",
+Cell[6728, 163, 473, 13, 50, "RelatedLinksSection",ExpressionUUID->"613e61b1-2a3e-4430-861a-7021eb974a1d",
  CellID->1945395557],
-Cell[6482, 172, 103, 1, 19, "RelatedLinks",ExpressionUUID->"504a1c74-eab8-4ad6-a15f-4aecceef1320",
+Cell[7204, 178, 103, 1, 24, "RelatedLinks",ExpressionUUID->"504a1c74-eab8-4ad6-a15f-4aecceef1320",
  CellID->824600924]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6622, 178, 459, 13, 40, "SeeAlsoSection",ExpressionUUID->"8c3deaae-807e-4fc4-9e68-7e9644c5ff79",
+Cell[7344, 184, 459, 13, 50, "SeeAlsoSection",ExpressionUUID->"8c3deaae-807e-4fc4-9e68-7e9644c5ff79",
  CellID->1355755577],
-Cell[7084, 193, 1544, 40, 26, "SeeAlso",ExpressionUUID->"f5589872-5c9a-4757-8241-d519b0df601a",
+Cell[7806, 199, 2652, 65, 30, "SeeAlso",ExpressionUUID->"f5589872-5c9a-4757-8241-d519b0df601a",
  CellID->1382487969]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8665, 238, 184, 2, 40, "MoreAboutSection",ExpressionUUID->"e64d5db6-4cb6-436a-a37f-517873775bef",
+Cell[10495, 269, 184, 2, 50, "MoreAboutSection",ExpressionUUID->"e64d5db6-4cb6-436a-a37f-517873775bef",
  CellID->1849718090],
-Cell[8852, 242, 101, 1, 19, "MoreAbout",ExpressionUUID->"0435cefe-005f-4988-b913-3065b3cf4a4d",
+Cell[10682, 273, 101, 1, 24, "MoreAbout",ExpressionUUID->"0435cefe-005f-4988-b913-3065b3cf4a4d",
  CellID->1238664658]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8990, 248, 530, 14, 70, "ExamplesInitializationSection",ExpressionUUID->"93327451-091f-494e-be01-3f70cdfbbbf2",
+Cell[10820, 279, 530, 14, 87, "ExamplesInitializationSection",ExpressionUUID->"93327451-091f-494e-be01-3f70cdfbbbf2",
  CellID->530432988],
-Cell[9523, 264, 202, 3, 47, "ExampleInitialization",ExpressionUUID->"071436bf-b53f-499c-bb3d-f3b64d210ee1",
+Cell[11353, 295, 202, 3, 57, "ExampleInitialization",ExpressionUUID->"071436bf-b53f-499c-bb3d-f3b64d210ee1",
  CellID->782610619]
 }, Open  ]],
-Cell[9740, 270, 443, 12, 73, "PrimaryExamplesSection",ExpressionUUID->"9e1b06bf-10ca-4c45-a945-9f3f843883ef",
- CellID->2146819305],
 Cell[CellGroupData[{
-Cell[10208, 286, 488, 13, 58, "ExtendedExamplesSection",ExpressionUUID->"bb7d7acd-cad2-4140-8540-daa129de5bbf",
+Cell[11592, 303, 443, 12, 90, "PrimaryExamplesSection",ExpressionUUID->"9e1b06bf-10ca-4c45-a945-9f3f843883ef",
+ CellID->2146819305],
+Cell[12038, 317, 211, 3, 30, "ExampleText",ExpressionUUID->"c80db07e-9510-41ca-9904-01d8a536e84e",
+ CellID->834208600],
+Cell[12252, 322, 602, 18, 106, "Input",ExpressionUUID->"cb258e7d-7bdc-4008-b88b-e383b3290ed9",
+ CellID->210108724],
+Cell[12857, 342, 320, 7, 30, "ExampleText",ExpressionUUID->"e5d8324f-8e6a-4209-a31f-e13d3a5976ce",
+ CellID->1154387338],
+Cell[CellGroupData[{
+Cell[13202, 353, 1405, 30, 202, "Input",ExpressionUUID->"1134d60c-b9f7-4684-93e1-a2f940be6f4f",
+ CellID->2009046217],
+Cell[CellGroupData[{
+Cell[14632, 387, 30647, 666, 682, "Echo",ExpressionUUID->"f6ae3cb3-2e83-4405-a488-5404f5b5af91",
+ CellID->1427357690],
+Cell[45282, 1055, 2112, 49, 117, "Echo",ExpressionUUID->"3b0c6e8b-31af-43c2-837c-feadcffe4b87",
+ CellID->60875193]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47455, 1111, 488, 13, 72, "ExtendedExamplesSection",ExpressionUUID->"bb7d7acd-cad2-4140-8540-daa129de5bbf",
  CellTags->"ExtendedExamples",
  CellID->1719305888],
-Cell[10699, 301, 242, 5, 35, "ExampleSection",ExpressionUUID->"a905e168-664e-44a7-a76b-55efc17ca98a",
+Cell[47946, 1126, 242, 5, 43, "ExampleSection",ExpressionUUID->"a905e168-664e-44a7-a76b-55efc17ca98a",
  CellID->1981589231],
-Cell[10944, 308, 265, 5, 23, "ExampleSection",ExpressionUUID->"8eea938a-b0f8-4aa3-820f-a981cd24c59d",
+Cell[48191, 1133, 265, 5, 27, "ExampleSection",ExpressionUUID->"8eea938a-b0f8-4aa3-820f-a981cd24c59d",
  CellID->1393807741],
 Cell[CellGroupData[{
-Cell[11234, 317, 243, 5, 23, "ExampleSection",ExpressionUUID->"096883f4-10f1-4887-9f37-1a7302ffdd41",
+Cell[48481, 1142, 243, 5, 27, "ExampleSection",ExpressionUUID->"096883f4-10f1-4887-9f37-1a7302ffdd41",
  CellID->176181381],
-Cell[11480, 324, 261, 5, 26, "ExampleSubsection",ExpressionUUID->"bd485e5f-4101-4983-8a05-e543c2bb5d18",
+Cell[48727, 1149, 261, 5, 32, "ExampleSubsection",ExpressionUUID->"bd485e5f-4101-4983-8a05-e543c2bb5d18",
  CellID->1848004901],
-Cell[11744, 331, 248, 5, 22, "ExampleSubsection",ExpressionUUID->"f99cdd6d-4dd9-408b-b368-f9d2f6aaf214",
+Cell[48991, 1156, 248, 5, 26, "ExampleSubsection",ExpressionUUID->"f99cdd6d-4dd9-408b-b368-f9d2f6aaf214",
  CellID->362384546],
-Cell[11995, 338, 273, 5, 22, "ExampleSubsection",ExpressionUUID->"e90bb8e2-76ca-4e67-8c02-f7c09e2ed6b0",
+Cell[49242, 1163, 273, 5, 26, "ExampleSubsection",ExpressionUUID->"e90bb8e2-76ca-4e67-8c02-f7c09e2ed6b0",
  CellID->333441730],
-Cell[12271, 345, 276, 5, 22, "ExampleSubsection",ExpressionUUID->"82908379-8529-4d15-82ce-331dd6218abb",
+Cell[49518, 1170, 276, 5, 26, "ExampleSubsection",ExpressionUUID->"82908379-8529-4d15-82ce-331dd6218abb",
  CellID->1370321087],
-Cell[12550, 352, 266, 5, 22, "ExampleSubsection",ExpressionUUID->"54b6cb03-14eb-4283-acdc-cd91bb4a0c76",
+Cell[49797, 1177, 266, 5, 26, "ExampleSubsection",ExpressionUUID->"54b6cb03-14eb-4283-acdc-cd91bb4a0c76",
  CellID->1371878781],
-Cell[12819, 359, 260, 5, 22, "ExampleSubsection",ExpressionUUID->"1b54c645-244d-496c-8b6e-2516faba607c",
+Cell[50066, 1184, 260, 5, 26, "ExampleSubsection",ExpressionUUID->"1b54c645-244d-496c-8b6e-2516faba607c",
  CellID->1782238075],
-Cell[13082, 366, 251, 5, 22, "ExampleSubsection",ExpressionUUID->"d6a1c1d0-deef-49cc-80f9-833a9ef57667",
+Cell[50329, 1191, 251, 5, 26, "ExampleSubsection",ExpressionUUID->"d6a1c1d0-deef-49cc-80f9-833a9ef57667",
  CellID->973418169],
-Cell[13336, 373, 253, 5, 22, "ExampleSubsection",ExpressionUUID->"b3adef22-4739-4b7d-9ed3-880e27e50f0e",
+Cell[50583, 1198, 253, 5, 26, "ExampleSubsection",ExpressionUUID->"b3adef22-4739-4b7d-9ed3-880e27e50f0e",
  CellID->708743537],
-Cell[13592, 380, 251, 5, 22, "ExampleSubsection",ExpressionUUID->"689650e8-9d96-4ff1-bd14-a82cf8ea7858",
+Cell[50839, 1205, 251, 5, 26, "ExampleSubsection",ExpressionUUID->"689650e8-9d96-4ff1-bd14-a82cf8ea7858",
  CellID->1908320097],
-Cell[13846, 387, 257, 5, 22, "ExampleSubsection",ExpressionUUID->"2feb3b35-78d3-409e-a73b-e54006bdc6e9",
+Cell[51093, 1212, 257, 5, 26, "ExampleSubsection",ExpressionUUID->"2feb3b35-78d3-409e-a73b-e54006bdc6e9",
  CellID->467602334],
-Cell[14106, 394, 260, 5, 22, "ExampleSubsection",ExpressionUUID->"674be349-d74a-428b-ae47-20e72e6b83f5",
+Cell[51353, 1219, 260, 5, 26, "ExampleSubsection",ExpressionUUID->"674be349-d74a-428b-ae47-20e72e6b83f5",
  CellID->1349763165],
-Cell[14369, 401, 256, 5, 22, "ExampleSubsection",ExpressionUUID->"a378eadd-6217-4277-b002-e3894ef16645",
+Cell[51616, 1226, 256, 5, 26, "ExampleSubsection",ExpressionUUID->"a378eadd-6217-4277-b002-e3894ef16645",
  CellID->1599750894],
-Cell[14628, 408, 261, 5, 22, "ExampleSubsection",ExpressionUUID->"22f10772-bf8b-453b-9828-99ada6c560bf",
+Cell[CellGroupData[{
+Cell[51897, 1235, 261, 5, 26, "ExampleSubsection",ExpressionUUID->"22f10772-bf8b-453b-9828-99ada6c560bf",
  CellID->518015018],
-Cell[14892, 415, 269, 5, 22, "ExampleSubsection",ExpressionUUID->"f15691fc-5c39-4bf1-b7a2-67982a9fd746",
+Cell[CellGroupData[{
+Cell[52183, 1244, 1021, 22, 178, "Input",ExpressionUUID->"9b54d20b-9f3d-4b6a-b1c9-9d2ce03da271",
+ CellID->1607866211],
+Cell[CellGroupData[{
+Cell[53229, 1270, 549, 12, 27, "Print",ExpressionUUID->"0cfc530c-704f-485a-adc6-f2aa5f9d4388",
+ CellID->1762514928],
+Cell[53781, 1284, 548, 12, 27, "Print",ExpressionUUID->"1faa69ce-a244-488d-a964-46b387eca2ce",
+ CellID->198968178],
+Cell[54332, 1298, 546, 12, 27, "Print",ExpressionUUID->"d7a1f08c-3906-47ac-bb37-98cb40bfeccb",
+ CellID->426129267],
+Cell[54881, 1312, 549, 12, 27, "Print",ExpressionUUID->"4e73f6ea-367b-460b-a0da-2c04964f397e",
+ CellID->96627724],
+Cell[55433, 1326, 547, 12, 27, "Print",ExpressionUUID->"270ce4c4-e6e1-419e-97fd-1d161b458dd7",
+ CellID->524520136],
+Cell[55983, 1340, 550, 12, 27, "Print",ExpressionUUID->"93fe7a59-55a5-4a27-8462-dbdfedab8de3",
+ CellID->189554817]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[56572, 1357, 269, 5, 32, "ExampleSubsection",ExpressionUUID->"f15691fc-5c39-4bf1-b7a2-67982a9fd746",
  CellID->379702588]
 }, Open  ]],
-Cell[15176, 423, 248, 5, 35, "ExampleSection",ExpressionUUID->"3f6daa78-8e48-4aab-b158-98c9843d19dd",
+Cell[56856, 1365, 248, 5, 43, "ExampleSection",ExpressionUUID->"3f6daa78-8e48-4aab-b158-98c9843d19dd",
  CellID->613267290],
-Cell[15427, 430, 259, 5, 23, "ExampleSection",ExpressionUUID->"298459b6-2a83-4148-a7a7-7489d69a9b47",
+Cell[57107, 1372, 259, 5, 27, "ExampleSection",ExpressionUUID->"298459b6-2a83-4148-a7a7-7489d69a9b47",
  CellID->1409321077],
-Cell[15689, 437, 252, 5, 23, "ExampleSection",ExpressionUUID->"f46fffbc-01c7-4405-b9ab-b392c238093b",
+Cell[57369, 1379, 252, 5, 27, "ExampleSection",ExpressionUUID->"f46fffbc-01c7-4405-b9ab-b392c238093b",
  CellID->1862198376],
-Cell[15944, 444, 256, 5, 23, "ExampleSection",ExpressionUUID->"89df324c-141a-4dff-ba1f-7375f2f1c9c5",
+Cell[57624, 1386, 256, 5, 27, "ExampleSection",ExpressionUUID->"89df324c-141a-4dff-ba1f-7375f2f1c9c5",
  CellID->541434054],
-Cell[16203, 451, 249, 5, 23, "ExampleSection",ExpressionUUID->"c226cb11-438d-4e2f-9e39-9d76284dcf78",
+Cell[57883, 1393, 249, 5, 27, "ExampleSection",ExpressionUUID->"c226cb11-438d-4e2f-9e39-9d76284dcf78",
  CellID->993933239]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16489, 461, 111, 1, 72, "MetadataSection",ExpressionUUID->"f69c6261-85d7-4723-af83-f96732fc9732",
+Cell[58169, 1403, 111, 1, 90, "MetadataSection",ExpressionUUID->"f69c6261-85d7-4723-af83-f96732fc9732",
  CellID->1908141507],
-Cell[16603, 464, 477, 12, 26, "History",ExpressionUUID->"1470ab01-f93b-4122-8e3d-dbc4641c1fbc",
+Cell[58283, 1406, 477, 12, 33, "History",ExpressionUUID->"1470ab01-f93b-4122-8e3d-dbc4641c1fbc",
  CellID->1761007498],
 Cell[CellGroupData[{
-Cell[17105, 480, 484, 13, 21, "CategorizationSection",ExpressionUUID->"bf133e49-dd8c-42e3-bb39-fb17fcd277ce",
+Cell[58785, 1422, 484, 13, 27, "CategorizationSection",ExpressionUUID->"bf133e49-dd8c-42e3-bb39-fb17fcd277ce",
  CellID->633395932],
-Cell[17592, 495, 134, 2, 35, "Categorization",ExpressionUUID->"66bb7075-0c1f-4797-bc1c-0f34a3db11fe",
+Cell[59272, 1437, 134, 2, 43, "Categorization",ExpressionUUID->"66bb7075-0c1f-4797-bc1c-0f34a3db11fe",
  CellID->408990945],
-Cell[17729, 499, 171, 2, 35, "Categorization",ExpressionUUID->"fb9a89ae-2f69-4cbb-a267-b5c4e217cb92",
+Cell[59409, 1441, 171, 2, 43, "Categorization",ExpressionUUID->"fb9a89ae-2f69-4cbb-a267-b5c4e217cb92",
  CellID->1487481279],
-Cell[17903, 503, 168, 2, 35, "Categorization",ExpressionUUID->"d0cb0eb7-b7d5-45ef-a22f-50e825ecbbe7",
+Cell[59583, 1445, 168, 2, 43, "Categorization",ExpressionUUID->"d0cb0eb7-b7d5-45ef-a22f-50e825ecbbe7",
  CellID->1240721426],
-Cell[18074, 507, 194, 4, 35, "Categorization",ExpressionUUID->"ee9385e4-9c40-4fb7-ab06-cb8800b22cdb",
+Cell[59754, 1449, 194, 4, 43, "Categorization",ExpressionUUID->"ee9385e4-9c40-4fb7-ab06-cb8800b22cdb",
  CellID->738794412]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[18305, 516, 111, 1, 21, "KeywordsSection",ExpressionUUID->"d73daeaa-682e-493a-b3c2-444a8e930d78",
+Cell[59985, 1458, 111, 1, 26, "KeywordsSection",ExpressionUUID->"d73daeaa-682e-493a-b3c2-444a8e930d78",
  CellID->1889240560],
-Cell[18419, 519, 100, 1, 70, "Keywords",ExpressionUUID->"6fce60f0-c4f7-47de-bef1-50c4588d29e9",
+Cell[60099, 1461, 100, 1, 87, "Keywords",ExpressionUUID->"6fce60f0-c4f7-47de-bef1-50c4588d29e9",
  CellID->1920371025]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[18556, 525, 120, 1, 21, "TemplatesSection",ExpressionUUID->"6fec9d57-a733-40c7-a846-312f8a9dd84f",
+Cell[60236, 1467, 120, 1, 26, "TemplatesSection",ExpressionUUID->"6fec9d57-a733-40c7-a846-312f8a9dd84f",
  CellID->1144086412],
-Cell[18679, 528, 147, 2, 70, "Template",ExpressionUUID->"3b5cdbd8-edbf-420e-bd90-7aac418f31ba",
+Cell[60359, 1470, 147, 2, 87, "Template",ExpressionUUID->"3b5cdbd8-edbf-420e-bd90-7aac418f31ba",
  CellID->91751246],
-Cell[18829, 532, 137, 2, 70, "Template",ExpressionUUID->"34e2527b-67bc-4213-914b-20dd8b2ad619",
+Cell[60509, 1474, 137, 2, 87, "Template",ExpressionUUID->"34e2527b-67bc-4213-914b-20dd8b2ad619",
  CellID->169932976],
-Cell[18969, 536, 136, 2, 70, "Template",ExpressionUUID->"d7ae7040-8e4c-44bf-b990-26661d4c759d",
+Cell[60649, 1478, 136, 2, 87, "Template",ExpressionUUID->"d7ae7040-8e4c-44bf-b990-26661d4c759d",
  CellID->2057760769],
-Cell[19108, 540, 138, 2, 70, "Template",ExpressionUUID->"732d46fb-d15c-46a8-9591-874db7232924",
+Cell[60788, 1482, 138, 2, 87, "Template",ExpressionUUID->"732d46fb-d15c-46a8-9591-874db7232924",
  CellID->1708593295]
 }, Closed]]
 }, Open  ]]
 }
 ]
 *)
-
-(* End of internal cache information *)
 

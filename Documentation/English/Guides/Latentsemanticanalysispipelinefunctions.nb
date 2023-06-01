@@ -1,0 +1,1344 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     53739,       1336]
+NotebookOptionsPosition[     45364,       1164]
+NotebookOutlinePosition[     45933,       1183]
+CellTagsIndexPosition[     45890,       1180]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Latent semantic analysis pipeline functions", "GuideTitle",
+ CellID->1831358543,ExpressionUUID->"b8a16e9e-a479-4152-be09-39b639a882f4"],
+
+Cell["\<\
+A monadic pipeline is a way to navigate computations in monad's function \
+space.  The unit function and the setter functions \"uplift\" data into \
+monad's space. The taker functions \"download\" data from monad's space. The \
+central -- and most computationally intensive -- functions are the \
+document-term creation functions and the topic extraction function. Variety \
+of use cases are addressed with the rest of the functions.\
+\>", "GuideAbstract",
+ CellChangeTimes->{{3.894466962976453*^9, 3.894467036469056*^9}, {
+  3.8944670668027353`*^9, 3.894467113645343*^9}},
+ CellID->1907403397,ExpressionUUID->"998eb4e9-a7e7-4fea-a9b7-69ca2a9a8551"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->93010963,ExpressionUUID->"f20b1df9-c8ca-4d26-a1ed-b5c5d198fc5e"],
+
+Cell[CellGroupData[{
+
+Cell["Fundamental", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443335893507*^9, 3.894443341573873*^9}},
+ CellID->1581881019,ExpressionUUID->"4344626f-158d-4591-a878-6a081995514b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMon",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMon"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"60fb2534-5fc5-447f-b346-62ff7a19b3c1",ExpressionUUID->
+  "afc101af-2479-4000-8a57-3c929e9973ec"],
+ " \[LongDash] monad's objects head "
+}], "GuideText",
+ CellChangeTimes->{{3.894466410158979*^9, 3.894466411973363*^9}, {
+  3.894466729660075*^9, 3.8944667450030518`*^9}, {3.894466824608034*^9, 
+  3.8944668289955597`*^9}, {3.89446729443151*^9, 3.894467294431532*^9}},
+ CellID->1152305194,ExpressionUUID->"55a480e4-ddc7-444a-91ad-51cae80e0b40"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonUnit",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonUnit"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"60fb2534-5fc5-447f-b346-62ff7a19b3c1",ExpressionUUID->
+  "6d53b884-4315-4cc5-b1f5-9741ff03143d"],
+ " \[LongDash] create monad unit object"
+}], "GuideText",
+ CellChangeTimes->{{3.894466748587961*^9, 3.8944667702259493`*^9}, {
+  3.894466805685216*^9, 3.894466809994433*^9}, {3.894467298925506*^9, 
+  3.894467298925522*^9}},
+ CellID->999853524,ExpressionUUID->"b8933e01-ae12-4959-b90a-8d41f422f41d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["$LSAMonFailure",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/$LSAMonFailure"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"60fb2534-5fc5-447f-b346-62ff7a19b3c1",ExpressionUUID->
+  "f06ad5c5-c568-491e-b4f5-a1fdf9800c67"],
+ " \[LongDash] monad's failure symbol"
+}], "GuideText",
+ CellChangeTimes->{{3.894466781882086*^9, 3.894466835835064*^9}, {
+  3.894467303044655*^9, 3.894467303044671*^9}},
+ CellID->28287551,ExpressionUUID->"cf5b97b9-6958-4632-9165-cd1f129e7de7"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonUnitQ",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonUnitQ"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"60fb2534-5fc5-447f-b346-62ff7a19b3c1",ExpressionUUID->
+  "c100586e-fe11-4ccb-831e-52fa551818bd"],
+ " \[LongDash] check whether an expression is a monad object"
+}], "GuideText",
+ CellChangeTimes->{{3.894466843466758*^9, 3.894466880319468*^9}, {
+  3.894467307593182*^9, 3.894467307593198*^9}},
+ CellID->1065104619,ExpressionUUID->"d98b054c-f5e9-46de-883f-0abed224f9b9"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonBind",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonBind"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"60fb2534-5fc5-447f-b346-62ff7a19b3c1",ExpressionUUID->
+  "73e4ffad-c75e-4702-8b8b-98185f7e8c62"],
+ " \[LongDash] monad's binding function"
+}], "GuideText",
+ CellChangeTimes->{{3.894466886981489*^9, 3.894466900073512*^9}, {
+  3.8944673113685102`*^9, 3.894467311368527*^9}},
+ CellID->1625809355,ExpressionUUID->"716e695d-6dfc-423a-a0d2-a6dd536c398f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Droppers", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894466390821883*^9, 3.894466393213335*^9}},
+ CellID->1866015822,ExpressionUUID->"7eeb9b67-628c-4c72-b2f8-d34e41ba31e1"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonDropFromContext",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonDropFromContext"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "949f54b1-02c1-4c55-b52a-3722237ef46a"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "da485876-1652-4cee-a456-aad1067298e0"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "c5d497f1-8eaf-4e8e-aedb-0018751074f2"], $CellContext`cellobj$$ = 
+    CellObject[
+    "78caa9a9-98a3-4ac3-bc15-0291824ad39c", 
+     "977640ec-04de-467b-b38d-c6125b37f08b"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "78caa9a9-98a3-4ac3-bc15-0291824ad39c"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.8944664038838243`*^9, 3.8944664038838587`*^9}, {
+  3.894467314879884*^9, 3.894467314879899*^9}},
+ CellID->255231579,ExpressionUUID->"3accee7a-929a-48d2-9b10-a65d42a80ad5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Echoers", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.8944664408803673`*^9, 3.894466446020347*^9}},
+ CellID->1317887051,ExpressionUUID->"65ef5296-dff4-4a3e-bbfb-5b6a443cd49c"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonEcho",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEcho"]], "InlineGuideFunction",
+  ExpressionUUID->"e53ac385-654e-4152-b26d-bca11c235439"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoContext",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoContext"]], "InlineGuideFunction",
+  
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"92dcaf65-b38c-4979-9222-d39f8e46a34a",ExpressionUUID->
+  "2e982c0c-8022-4e70-806a-3c1ac97f1330"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoFunctionContext",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoFunctionContext"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"7dc3eb35-0aba-4dba-884e-962ddaec174e",ExpressionUUID->
+  "3851aa6f-2e3b-4551-a991-5e30a8c9cdcb"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoFunctionValue",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoFunctionValue"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"ee493077-4227-406f-ad97-adaa93a24373",ExpressionUUID->
+  "da442422-9807-44b0-9287-0f25235266f2"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoValue",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoValue"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"8dac96b8-986e-4183-8b3f-3b5f49b0d165",ExpressionUUID->
+  "ae07f03a-e159-49f5-be54-8f1c5ca850f8"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "b0154201-e091-4e19-9f39-ba6f2c80c0f7"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "c5d497f1-8eaf-4e8e-aedb-0018751074f2"], $CellContext`cellobj$$ = 
+    CellObject[
+    "5ec8cb39-d909-45e1-bdb9-e5d56698f947", 
+     "09d5e58c-442e-4fde-9eab-7a4d02e1f1a4"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "5ec8cb39-d909-45e1-bdb9-e5d56698f947"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894466518454191*^9, 3.8944665740650043`*^9}, {
+  3.894466608914343*^9, 3.894466622646142*^9}, {3.894467319944334*^9, 
+  3.894467338765357*^9}},
+ CellID->2042352421,ExpressionUUID->"b0c7cca7-1e3d-453f-9c3c-18f09610bfb2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Setters", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443351687419*^9, 3.8944433526439466`*^9}},
+ CellID->1407306623,ExpressionUUID->"4977dc08-ba5b-4e4c-a331-0591c3314302"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonSetContext",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonSetContext"]], "InlineGuideFunction",
+  ExpressionUUID->"67cd3bd6-b6b1-49ca-9924-1375240d8d4e"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonSetValue",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonSetValue"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"ef56346a-91ce-4d8d-a7ce-c779369d59b3",ExpressionUUID->
+  "a8295b39-a2c4-4b2f-bda3-e8efaf35240f"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "b0ffeef7-a725-47c7-9b43-f2cf7e88e09c"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "c5d497f1-8eaf-4e8e-aedb-0018751074f2"], $CellContext`cellobj$$ = 
+    CellObject[
+    "d191fc81-49a1-4414-94ac-49eccba4dd40", 
+     "a50909e1-1aea-4874-b767-e085238b151d"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "d191fc81-49a1-4414-94ac-49eccba4dd40"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894466346509553*^9, 3.894466353799302*^9}, {
+  3.894467342695046*^9, 3.894467346880575*^9}},
+ CellID->1028814675,ExpressionUUID->"1ccb20ea-1ca6-4712-8e1f-5ad5cdc8b792"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Takers", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443357606237*^9, 3.894443359024235*^9}},
+ CellID->364653630,ExpressionUUID->"032a0f0f-7772-4cd1-ab62-3b9b016e45b1"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonTakeContext",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonTakeContext"]], "InlineGuideFunction",
+  ExpressionUUID->"826d6d32-9aca-4808-9ea2-53b2c2191f1d"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonTakeMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonTakeMatrix"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"1b3549f2-5c60-4cc4-ade6-e7e685f04e2e",ExpressionUUID->
+  "93102f08-1cff-45b5-9b7c-15bf42f28057"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonTakeTexts",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonTakeTexts"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"aaa08317-8c06-41e5-995e-eb9f9ca35497",ExpressionUUID->
+  "d3580019-6676-4a40-907a-5c77b2c2c30c"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonTakeValue",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonTakeValue"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"8ca649f7-e830-41d8-a2b3-984279b6e83b",ExpressionUUID->
+  "4d627ed6-b81f-4ca1-800a-2a3485655c56"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonTakeWeightedMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonTakeWeightedMatrix"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"0744bd5e-8732-49a5-b1da-5a295d57856d",ExpressionUUID->
+  "bf587d44-3baa-4613-bf2e-fc2ab49bb76b"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "2ebb82c1-a19d-4bfb-99dd-403b234afce5"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "c5d497f1-8eaf-4e8e-aedb-0018751074f2"], $CellContext`cellobj$$ = 
+    CellObject[
+    "bb18b3cf-8a59-4c4f-a2a1-2c81c9a10928", 
+     "87c33072-22d9-4ddf-94bd-800abbe32d99"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "bb18b3cf-8a59-4c4f-a2a1-2c81c9a10928"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894466307650812*^9, 3.894466329655596*^9}, {
+  3.894467351981617*^9, 3.8944673695801477`*^9}},
+ CellID->495384148,ExpressionUUID->"c494cafa-e4f1-4094-88d9-a886728b1aa5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Preliminary", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443364909218*^9, 3.894443369957692*^9}},
+ CellID->944968091,ExpressionUUID->"658320e8-cac5-4b4a-964b-1b57856e4404"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonMakeDocumentTermMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonMakeDocumentTermMatrix"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "1e2c1e56-a25c-463a-b33f-d8c246068017"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoDocumentsStatistics",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoDocumentsStatistics"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"868e333f-6955-4c11-b7fc-4d69acec9584",ExpressionUUID->
+  "c01a7076-30da-4508-871e-4634196da241"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoDocumentTermMatrixStatistics",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoDocumentTermMatrixStatistics"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"05c02779-89af-4914-96bc-abc80b8c8f64",ExpressionUUID->
+  "0e9f7b56-5e8b-4945-a4c9-6d7fefbbc9ad"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonApplyTermWeightFunctions",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonApplyTermWeightFunctions"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"200c7271-1366-4220-ac7f-fff455eed938",ExpressionUUID->
+  "864e1510-cd1c-4280-846e-0f2d3d86f9fd"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "359cb969-8e66-4930-9438-5058b8595238"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "c5d497f1-8eaf-4e8e-aedb-0018751074f2"], $CellContext`cellobj$$ = 
+    CellObject[
+    "896f0f16-9be2-4253-9f17-61655e2d3b8f", 
+     "2817b734-6ec5-474b-b4a1-b18ce4ea2724"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "896f0f16-9be2-4253-9f17-61655e2d3b8f"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894466645734181*^9, 3.894466691842334*^9}, {
+  3.894467374234495*^9, 3.894467385743445*^9}},
+ CellID->1640257674,ExpressionUUID->"9135b5ae-1219-4eed-bf0a-9f84c1e82fa2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Topics and thesauri extraction", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443378597218*^9, 3.894443420393133*^9}},
+ CellID->986713646,ExpressionUUID->"8c3b81c9-76f8-4f53-9ca1-eecef688609b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonExtractTopics",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonExtractTopics"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"e6b0eaee-a0ee-4123-b12c-aeb2979c11c6",ExpressionUUID->
+  "2762d691-eba5-497e-b47f-1b098008a373"],
+ " \[LongDash] extract topics (i.e. reduce dimension)"
+}], "GuideText",
+ CellChangeTimes->{{3.894451104508834*^9, 3.894451104508874*^9}, {
+  3.894467389304592*^9, 3.8944673893046093`*^9}, {3.8944674891755047`*^9, 
+  3.8944675052251883`*^9}},
+ CellID->699992001,ExpressionUUID->"33d49341-978d-4b0b-b3a1-58744b2a0f36"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonExtractStatisticalThesaurus",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonExtractStatisticalThesaurus"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"e6b0eaee-a0ee-4123-b12c-aeb2979c11c6",ExpressionUUID->
+  "eda6ceff-7515-4239-8bf1-ef5a069359d8"],
+ " \[LongDash] extract statistical thesaurus"
+}], "GuideText",
+ CellChangeTimes->{{3.8944511119127417`*^9, 3.894451111912767*^9}, {
+  3.8944673927032757`*^9, 3.894467392703293*^9}, {3.894467508252928*^9, 
+  3.8944675168729153`*^9}},
+ CellID->850142541,ExpressionUUID->"e3282a76-7ca9-46df-aa51-660f1bdda803"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->2025117005,ExpressionUUID->"6147c5ec-e81e-4bf0-8ca2-34c6e118926b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoTopicsTable",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoTopicsTable"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "4f7bc628-9dc5-46cc-b2d0-24e4a96237ca"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonEchoStatisticalThesaurusTable",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonEchoStatisticalThesaurusTable"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"df9a1644-aab7-49c3-9bb5-36ed3ae02fa8",ExpressionUUID->
+  "762a6194-9f69-4834-ae3d-03a5978dd43e"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonMakeTopicsTable",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonMakeTopicsTable"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"b837e3ad-9caa-4993-b7a4-c900b007773f",ExpressionUUID->
+  "d59255a7-683e-47e6-90e3-79889cb780fb"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "372f3c2f-4a3f-46e5-a937-d3dc07a064b7"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "74acab41-27d8-4200-aeea-36133394618c"], $CellContext`cellobj$$ = 
+    CellObject[
+    "0927925a-4684-4504-beee-33a9b6bd0176", 
+     "82f8e146-c948-46c6-a1a5-1c65d9cc4df5"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "0927925a-4684-4504-beee-33a9b6bd0176"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894451013288978*^9, 3.89445104996869*^9}, {
+  3.89445113155226*^9, 3.894451177240987*^9}, {3.894467396892902*^9, 
+  3.894467404864814*^9}},
+ CellID->2014086116,ExpressionUUID->"d7b7ac62-75dc-4778-bc3d-95226fd94d63"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Representations", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894443385247871*^9, 3.8944433880295963`*^9}, {
+  3.894443427695022*^9, 3.8944434376615334`*^9}},
+ CellID->276152989,ExpressionUUID->"0df37bf2-277f-4111-b82b-8a333f5aa6c2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonRepresentByTerms",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonRepresentByTerms"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "9a7c7392-26db-47eb-9921-f90ec58ea347"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonRepresentByTopics",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonRepresentByTopics"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"7385865a-fd2d-46e7-be37-0bc0f0effdcf",ExpressionUUID->
+  "161cea93-a2f5-40b3-a947-cb3d47ace17a"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonRepresentDocumentTagsByTopics",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonRepresentDocumentTagsByTopics"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"12d4b1ce-6a48-4403-a4ce-59efbf54f28c",ExpressionUUID->
+  "a880c419-7032-4ac7-ae05-183e13048d0d"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "c76c47eb-4ee4-426f-8501-57d3b081b384"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "fe0b24b5-b5c1-4ca5-b9d1-b2f16b5a77d9"], $CellContext`cellobj$$ = 
+    CellObject[
+    "7bbfb93c-4bc4-4d90-8c88-c13ca9ccad0f", 
+     "903a5b9b-2575-4899-a81c-fbf80d8b040f"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "7bbfb93c-4bc4-4d90-8c88-c13ca9ccad0f"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.894451264437711*^9, 3.894451307459525*^9}, {
+  3.894467409065889*^9, 3.8944674192215147`*^9}},
+ CellID->1743452186,ExpressionUUID->"6f5ace5f-ab9c-43c1-b4ec-8303a435f0a3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->58428698,ExpressionUUID->"e9358c6d-a882-44e6-8787-bc37ad4e0a31"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["LSAMonMakeBipartiteGraphMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonMakeBipartiteGraphMatrix"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "b3a7e786-47c2-4239-954b-0936ccfdf733"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["LSAMonMakeGraph",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/LSAMonMakeGraph"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"531a7941-b076-4deb-ab8b-0679fea726ee",ExpressionUUID->
+  "572fd35c-c5ef-4d47-9540-5ad240fb5b60"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "cef96018-73f4-4955-8f78-83035975ab67"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "fe0b24b5-b5c1-4ca5-b9d1-b2f16b5a77d9"], $CellContext`cellobj$$ = 
+    CellObject[
+    "a34fa670-b6c5-4df7-a8f4-bf2f3480ad63", 
+     "a23b9db8-8aad-4e25-810c-e865fa838915"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "a34fa670-b6c5-4df7-a8f4-bf2f3480ad63"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.8944511947756166`*^9, 3.894451240533195*^9}, {
+  3.894467423462109*^9, 3.894467429352841*^9}},
+ CellID->2098569147,ExpressionUUID->"ad0ad6ff-25d9-4bc8-88fe-3f92717e0a47"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Document-term matrix", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.8944506488133383`*^9, 3.89445066347663*^9}},
+ CellID->697221941,ExpressionUUID->"a9c45522-4eb0-4cac-ab4e-e82add2d0fc4"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["DocumentTermMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/DocumentTermMatrix"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "7fca0499-c7eb-4e72-b7c7-24a0213046e9"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["DocumentTermMatrixSSparseMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/FunctionalParsers/ref/\
+DocumentTermMatrixSSparseMatrix"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"67bf8ca7-cf93-41df-8248-988592dd9a92",ExpressionUUID->
+  "118e52dc-3af5-4737-b28f-a497d920681f"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["ToBagOfWords",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/ToBagOfWords"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"64fe8421-103d-4dc7-8a5e-6a9329e54ed4",ExpressionUUID->
+  "7de9e246-2546-44d5-a884-6512413e7f33"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "3bd8d5d0-840e-4f3c-930e-d43205289ef7"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "fe0b24b5-b5c1-4ca5-b9d1-b2f16b5a77d9"], $CellContext`cellobj$$ = 
+    CellObject[
+    "572cda07-cb2b-4151-8bb9-62aded55cb08", 
+     "f72a6e31-c46e-4124-9e6b-2f67ec0b0757"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "572cda07-cb2b-4151-8bb9-62aded55cb08"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.8944507041618*^9, 3.894450720559596*^9}, {
+  3.8944509072165833`*^9, 3.894450929026455*^9}, {3.894467435684371*^9, 
+  3.894467445297616*^9}},
+ CellID->440748966,ExpressionUUID->"720f4eef-fc12-4762-b885-4ab52fc5780f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->1195535692,ExpressionUUID->"83c58319-0ba2-4b71-874a-9366168f1057"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ApplyGlobalTermFunction",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/ApplyGlobalTermFunction"]], 
+  "InlineGuideFunction",ExpressionUUID->
+  "a971a7d6-6bec-4514-b1a7-b2b44701a8af"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["ApplyLocalTermFunction",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/ApplyLocalTermFunction"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"57f4ab3f-5578-43df-b401-e9fee83ed30f",ExpressionUUID->
+  "2dd2faae-d0e1-4cd3-b5be-163c1a00aeb1"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["ApplyNormalizationFunction",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/ApplyNormalizationFunction"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"e8fe1b90-64ce-4396-a0f0-5e5f1b7fd7d9",ExpressionUUID->
+  "becd7986-8848-4828-8a29-c449a870e86c"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "a7c879d8-32ff-4253-a166-3502bf0a605e"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "fe0b24b5-b5c1-4ca5-b9d1-b2f16b5a77d9"], $CellContext`cellobj$$ = 
+    CellObject[
+    "048494de-8a19-44bc-8672-895a76ea7628", 
+     "11e003d5-4c20-4ae5-b45d-0bbd546063b2"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "048494de-8a19-44bc-8672-895a76ea7628"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.8944508003286858`*^9, 3.894450877582449*^9}, {
+  3.894450952315308*^9, 3.8944509542975082`*^9}, {3.894467449968953*^9, 
+  3.8944674569909363`*^9}},
+ CellID->295993792,ExpressionUUID->"51cd0530-65a1-49a4-86b0-dcab4f8d878b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->288779361,ExpressionUUID->"05a20c24-d348-4d60-97e2-e36aa5c451ef"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["GlobalTermFunctionWeights",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/GlobalTermFunctionWeights"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"ff8bab68-8e57-42bd-8192-45cbef653147",ExpressionUUID->
+  "d549a2bf-1ff4-4624-86ae-580fd96cc8e5"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["GlobalTermWeight",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/GlobalTermWeight"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"066f9ba7-07f9-4fc1-9bac-e4e2e43df035",ExpressionUUID->
+  "fd028391-f63e-4923-848d-7561df8fbbf8"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["WeightTerms",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/WeightTerms"]], "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"8ec8ad59-502a-422c-bbe9-1d22de9bf41f",ExpressionUUID->
+  "9cc52aae-9af7-4380-894c-25829ce2d8d0"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData[
+  ButtonBox["WeightTermsOfSSparseMatrix",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/WeightTermsOfSSparseMatrix"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"b5bcdd49-7f3e-4d8d-8942-2373f4f9a848",ExpressionUUID->
+  "ab35c1fa-2e3c-42f5-8019-dcd8e36702b7"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "4a1f0595-2cda-4c9e-9b28-8bd685b71a19"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "308f0701-ce79-4a74-8875-4d1a627fd4c8", 
+     "fe0b24b5-b5c1-4ca5-b9d1-b2f16b5a77d9"], $CellContext`cellobj$$ = 
+    CellObject[
+    "e0aeb9ea-a962-4339-beb9-259d86136175", 
+     "99efa46a-9fc0-43ff-b9c4-53c29514dcd7"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "e0aeb9ea-a962-4339-beb9-259d86136175"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.8944508003286858`*^9, 3.894450877582449*^9}, {
+  3.894450960281616*^9, 3.894450985600217*^9}, {3.894467461673552*^9, 
+  3.8944674740116587`*^9}},
+ CellID->1566644004,ExpressionUUID->"6ba76112-3045-4710-a2fc-9d978dd3db70"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Additional", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.894450729753344*^9, 3.8944507311793633`*^9}},
+ CellID->1121691597,ExpressionUUID->"71b54206-f694-4c36-b0f3-b778b97f9af6"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["FindMostImportantSentences",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:AntonAntonov/MonadicLatentSemanticAnalysis/\
+MonadicLatentSemanticAnalysis/ref/FindMostImportantSentences"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"e6b0eaee-a0ee-4123-b12c-aeb2979c11c6",ExpressionUUID->
+  "733f7e50-c8b0-4bdf-8bc7-f4d6d531519b"],
+ " \[LongDash] finds the most important sentences in a given text"
+}], "GuideText",
+ CellChangeTimes->{{3.894450739465526*^9, 3.894450765832694*^9}, {
+  3.8944674784900093`*^9, 3.894467478490026*^9}},
+ CellID->1615805801,ExpressionUUID->"eb1e857a-41c6-4c73-b62b-ca0b2e47d7c9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->1732064719,ExpressionUUID->"896885c0-aef8-439a-847d-ecfbfe498030"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->1670897148,ExpressionUUID->"39c6676d-db6b-4f0a-9eab-374e58231a13"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->124714617,ExpressionUUID->"ab46ce6d-b04d-4bc8-a727-c05f82acdca5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->134528447,ExpressionUUID->"17629c5d-ef75-48f8-8468-16220dd5da44"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->1866812085,ExpressionUUID->"dc030b36-8481-4966-b2f7-2550376d8caf"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->774629925,ExpressionUUID->"ac4ce229-3774-4bed-80aa-fa9f76a9400f"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->1159281361,ExpressionUUID->"6cd3d554-c4ce-4b23-87b9-bc38684a35ef"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->2070188743,ExpressionUUID->"49d799ea-dfd7-4cae-9ab6-af5b0c47c08d"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"597db348-a21f-4a35-9c41-c94bb10465a0"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"65a00339-7390-4609-807a-4470e31ae5b0"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "54762f40-37c7-4d7b-8a11-f73d846463ee"]
+}], "History",
+ CellChangeTimes->{{3.894467221108884*^9, 3.894467221936911*^9}},
+ CellID->132154907,ExpressionUUID->"8462857c-19f9-4456-8d19-fe1232ff87f3"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->629430951,ExpressionUUID->"3a793baa-e597-4836-98e6-dafecee36138"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->341548335,ExpressionUUID->"66d2012a-6540-4ea8-8e6e-759e5b697427"],
+
+Cell["AntonAntonov/MonadicLatentSemanticAnalysis", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->179077914,ExpressionUUID->"f53a5088-8465-472d-8640-1251f86affec"],
+
+Cell["AntonAntonov`MonadicLatentSemanticAnalysis`", "Categorization",
+ CellLabel->"Context",
+ CellID->1137911151,ExpressionUUID->"7c659fa1-0c86-4153-baaf-140c3d3016cd"],
+
+Cell["\<\
+AntonAntonov/MonadicLatentSemanticAnalysis/FunctionalParsers/guide/\
+Latentsemanticanalysispipelinefunctions\
+\>", "Categorization",
+ CellLabel->"URI",
+ CellID->1530838322,ExpressionUUID->"e9f8ae48-307e-4953-84f5-0dfc6f18993d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1945586794,ExpressionUUID->"8e6ae13e-aa58-45a0-93b0-edf2a29a035b"],
+
+Cell["Latent Semantic Analysis", "Keywords",
+ CellChangeTimes->{{3.8944672249341183`*^9, 3.894467248083522*^9}},
+ CellID->17696215,ExpressionUUID->"9a4bac71-b510-4846-8bf9-ec61b3898d2d"],
+
+Cell["LSA", "Keywords",
+ CellChangeTimes->{{3.8944672249341183`*^9, 3.8944672265539207`*^9}},
+ CellID->1891237536,ExpressionUUID->"0c7675e8-ce5e-41fd-83ec-1eedefb30d67"],
+
+Cell["Latent Semantic Indexing", "Keywords",
+ CellChangeTimes->{{3.89446724930196*^9, 3.894467258626583*^9}},
+ CellID->514195931,ExpressionUUID->"56ba154c-8b94-4eb9-9e65-07214b3412e7"],
+
+Cell["LSI", "Keywords",
+ CellChangeTimes->{{3.8944672249341183`*^9, 3.894467230222213*^9}},
+ CellID->1819736926,ExpressionUUID->"b6cae4b5-ef62-4b36-a2cf-f8d4d8da07a4"],
+
+Cell["Dimension reduction", "Keywords",
+ CellChangeTimes->{{3.8944672249341183`*^9, 3.8944672344268513`*^9}},
+ CellID->858918507,ExpressionUUID->"8d2fc750-fdea-4013-8b68-f2e82bf8c730"],
+
+Cell["Monad", "Keywords",
+ CellChangeTimes->{{3.8944672249341183`*^9, 3.894467239495407*^9}},
+ CellID->1608503259,ExpressionUUID->"a333952b-943d-4933-86e4-cb7f75094e50"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1559, 1210},
+WindowMargins->{{Automatic, 743}, {Automatic, 0}},
+TaggingRules-><|"Paclet" -> "AntonAntonov/FunctionalParsers"|>,
+Magnification:>1.25 Inherited,
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"308f0701-ce79-4a74-8875-4d1a627fd4c8"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 141, 1, 109, "GuideTitle",ExpressionUUID->"b8a16e9e-a479-4152-be09-39b639a882f4",
+ CellID->1831358543],
+Cell[724, 25, 659, 10, 126, "GuideAbstract",ExpressionUUID->"998eb4e9-a7e7-4fea-a9b7-69ca2a9a8551",
+ CellID->1907403397]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1420, 40, 107, 1, 91, "GuideFunctionsSection",ExpressionUUID->"f20b1df9-c8ca-4d26-a1ed-b5c5d198fc5e",
+ CellID->93010963],
+Cell[CellGroupData[{
+Cell[1552, 45, 189, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"4344626f-158d-4591-a878-6a081995514b",
+ CellID->1581881019],
+Cell[1744, 49, 714, 15, 34, "GuideText",ExpressionUUID->"55a480e4-ddc7-444a-91ad-51cae80e0b40",
+ CellID->1152305194],
+Cell[2461, 66, 677, 15, 34, "GuideText",ExpressionUUID->"b8933e01-ae12-4959-b90a-8d41f422f41d",
+ CellID->999853524],
+Cell[3141, 83, 631, 14, 34, "GuideText",ExpressionUUID->"cf5b97b9-6958-4632-9165-cd1f129e7de7",
+ CellID->28287551],
+Cell[3775, 99, 650, 14, 34, "GuideText",ExpressionUUID->"d98b054c-f5e9-46de-883f-0abed224f9b9",
+ CellID->1065104619],
+Cell[4428, 115, 629, 14, 34, "GuideText",ExpressionUUID->"716e695d-6dfc-423a-a0d2-a6dd536c398f",
+ CellID->1625809355]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5094, 134, 186, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"7eeb9b67-628c-4c72-b2f8-d34e41ba31e1",
+ CellID->1866015822],
+Cell[5283, 138, 1873, 46, 34, "InlineGuideFunctionListing",ExpressionUUID->"3accee7a-929a-48d2-9b10-a65d42a80ad5",
+ CellID->255231579]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7193, 189, 187, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"65ef5296-dff4-4a3e-bbfb-5b6a443cd49c",
+ CellID->1317887051],
+Cell[7383, 193, 3677, 89, 61, "InlineGuideFunctionListing",ExpressionUUID->"b0c7cca7-1e3d-453f-9c3c-18f09610bfb2",
+ CellID->2042352421]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11097, 287, 187, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"4977dc08-ba5b-4e4c-a331-0591c3314302",
+ CellID->1407306623],
+Cell[11287, 291, 2288, 55, 34, "InlineGuideFunctionListing",ExpressionUUID->"1ccb20ea-1ca6-4712-8e1f-5ad5cdc8b792",
+ CellID->1028814675]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13612, 351, 183, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"032a0f0f-7772-4cd1-ab62-3b9b016e45b1",
+ CellID->364653630],
+Cell[13798, 355, 3615, 86, 61, "InlineGuideFunctionListing",ExpressionUUID->"c494cafa-e4f1-4094-88d9-a886728b1aa5",
+ CellID->495384148]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17450, 446, 188, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"658320e8-cac5-4b4a-964b-1b57856e4404",
+ CellID->944968091],
+Cell[17641, 450, 3296, 79, 86, "InlineGuideFunctionListing",ExpressionUUID->"9135b5ae-1219-4eed-bf0a-9f84c1e82fa2",
+ CellID->1640257674]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20974, 534, 207, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"8c3b81c9-76f8-4f53-9ca1-eecef688609b",
+ CellID->986713646],
+Cell[21184, 538, 716, 16, 34, "GuideText",ExpressionUUID->"33d49341-978d-4b0b-b3a1-58744b2a0f36",
+ CellID->699992001],
+Cell[21903, 556, 735, 16, 34, "GuideText",ExpressionUUID->"e3282a76-7ca9-46df-aa51-660f1bdda803",
+ CellID->850142541]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22675, 577, 104, 1, 35, "GuideDelimiter",ExpressionUUID->"6147c5ec-e81e-4bf0-8ca2-34c6e118926b",
+ CellID->2025117005],
+Cell[22782, 580, 2841, 69, 59, "InlineGuideFunctionListing",ExpressionUUID->"d7b7ac62-75dc-4778-bc3d-95226fd94d63",
+ CellID->2014086116]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25660, 654, 245, 3, 46, "GuideFunctionsSubsection",ExpressionUUID->"0df37bf2-277f-4111-b82b-8a333f5aa6c2",
+ CellID->276152989],
+Cell[25908, 659, 2802, 68, 59, "InlineGuideFunctionListing",ExpressionUUID->"6f5ace5f-ab9c-43c1-b4ec-8303a435f0a3",
+ CellID->1743452186]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28747, 732, 102, 1, 35, "GuideDelimiter",ExpressionUUID->"e9358c6d-a882-44e6-8787-bc37ad4e0a31",
+ CellID->58428698],
+Cell[28852, 735, 2323, 56, 34, "InlineGuideFunctionListing",ExpressionUUID->"ad0ad6ff-25d9-4bc8-88fe-3f92717e0a47",
+ CellID->2098569147]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31212, 796, 198, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"a9c45522-4eb0-4cac-ab4e-e82add2d0fc4",
+ CellID->697221941],
+Cell[31413, 800, 2792, 67, 59, "InlineGuideFunctionListing",ExpressionUUID->"720f4eef-fc12-4762-b885-4ab52fc5780f",
+ CellID->440748966]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34242, 872, 104, 1, 35, "GuideDelimiter",ExpressionUUID->"83c58319-0ba2-4b71-874a-9366168f1057",
+ CellID->1195535692],
+Cell[34349, 875, 2836, 69, 59, "InlineGuideFunctionListing",ExpressionUUID->"51cd0530-65a1-49a4-86b0-dcab4f8d878b",
+ CellID->295993792]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37222, 949, 103, 1, 35, "GuideDelimiter",ExpressionUUID->"05a20c24-d348-4d60-97e2-e36aa5c451ef",
+ CellID->288779361],
+Cell[37328, 952, 3345, 80, 59, "InlineGuideFunctionListing",ExpressionUUID->"6ba76112-3045-4710-a2fc-9d978dd3db70",
+ CellID->1566644004]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40710, 1037, 190, 2, 46, "GuideFunctionsSubsection",ExpressionUUID->"71b54206-f694-4c36-b0f3-b778b97f9af6",
+ CellID->1121691597],
+Cell[40903, 1041, 690, 15, 34, "GuideText",ExpressionUUID->"eb1e857a-41c6-4c73-b62b-ca0b2e47d7c9",
+ CellID->1615805801]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41642, 1062, 119, 1, 93, "GuideTutorialsSection",ExpressionUUID->"896885c0-aef8-439a-847d-ecfbfe498030",
+ CellID->1732064719],
+Cell[41764, 1065, 105, 1, 30, "GuideTutorial",ExpressionUUID->"39c6676d-db6b-4f0a-9eab-374e58231a13",
+ CellID->1670897148],
+Cell[41872, 1068, 104, 1, 30, "GuideTutorial",ExpressionUUID->"ab46ce6d-b04d-4bc8-a727-c05f82acdca5",
+ CellID->124714617]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42013, 1074, 190, 2, 93, "GuideMoreAboutSection",ExpressionUUID->"17629c5d-ef75-48f8-8468-16220dd5da44",
+ CellID->134528447],
+Cell[42206, 1078, 106, 1, 30, "GuideMoreAbout",ExpressionUUID->"dc030b36-8481-4966-b2f7-2550376d8caf",
+ CellID->1866812085],
+Cell[42315, 1081, 105, 1, 30, "GuideMoreAbout",ExpressionUUID->"ac4ce229-3774-4bed-80aa-fa9f76a9400f",
+ CellID->774629925]
+}, Open  ]],
+Cell[42435, 1085, 125, 1, 93, "GuideRelatedLinksSection",ExpressionUUID->"6cd3d554-c4ce-4b23-87b9-bc38684a35ef",
+ CellID->1159281361],
+Cell[CellGroupData[{
+Cell[42585, 1090, 111, 1, 90, "MetadataSection",ExpressionUUID->"49d799ea-dfd7-4cae-9ab6-af5b0c47c08d",
+ CellID->2070188743],
+Cell[42699, 1093, 545, 13, 33, "History",ExpressionUUID->"8462857c-19f9-4456-8d19-fe1232ff87f3",
+ CellID->132154907],
+Cell[CellGroupData[{
+Cell[43269, 1110, 122, 1, 27, "CategorizationSection",ExpressionUUID->"3a793baa-e597-4836-98e6-dafecee36138",
+ CellID->629430951],
+Cell[43394, 1113, 133, 2, 45, "Categorization",ExpressionUUID->"66d2012a-6540-4ea8-8e6e-759e5b697427",
+ CellID->341548335],
+Cell[43530, 1117, 170, 2, 45, "Categorization",ExpressionUUID->"f53a5088-8465-472d-8640-1251f86affec",
+ CellID->179077914],
+Cell[43703, 1121, 168, 2, 45, "Categorization",ExpressionUUID->"7c659fa1-0c86-4153-baaf-140c3d3016cd",
+ CellID->1137911151],
+Cell[43874, 1125, 237, 5, 68, "Categorization",ExpressionUUID->"e9f8ae48-307e-4953-84f5-0dfc6f18993d",
+ CellID->1530838322]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44148, 1135, 111, 1, 39, "KeywordsSection",ExpressionUUID->"8e6ae13e-aa58-45a0-93b0-edf2a29a035b",
+ CellID->1945586794],
+Cell[44262, 1138, 186, 2, 27, "Keywords",ExpressionUUID->"9a4bac71-b510-4846-8bf9-ec61b3898d2d",
+ CellID->17696215],
+Cell[44451, 1142, 169, 2, 27, "Keywords",ExpressionUUID->"0c7675e8-ce5e-41fd-83ec-1eedefb30d67",
+ CellID->1891237536],
+Cell[44623, 1146, 184, 2, 27, "Keywords",ExpressionUUID->"56ba154c-8b94-4eb9-9e65-07214b3412e7",
+ CellID->514195931],
+Cell[44810, 1150, 167, 2, 27, "Keywords",ExpressionUUID->"b6cae4b5-ef62-4b36-a2cf-f8d4d8da07a4",
+ CellID->1819736926],
+Cell[44980, 1154, 184, 2, 27, "Keywords",ExpressionUUID->"8d2fc750-fdea-4013-8b68-f2e82bf8c730",
+ CellID->858918507],
+Cell[45167, 1158, 169, 2, 27, "Keywords",ExpressionUUID->"a333952b-943d-4933-86e4-cb7f75094e50",
+ CellID->1608503259]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
