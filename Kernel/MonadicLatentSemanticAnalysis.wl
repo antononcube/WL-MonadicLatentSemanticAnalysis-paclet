@@ -7,6 +7,8 @@ BeginPackage["AntonAntonov`MonadicLatentSemanticAnalysis`"];
 
 $LSAMonFailure::usage = "Failure symbol for the monad LSAMon.";
 
+LSAMonUnit::usage = "Monad's unit constructor.";
+
 LSAMonApplyTermWeightFunctions::usage = "Apply term weight functions to entries of the document-term matrix.";
 
 LSAMonInterpretBasisVector::usage = "Interpret the a specified basis vector.";
@@ -61,6 +63,9 @@ finds the most important sentences in a text or a list of sentences.";
 
 LSAMonImportFromDirectory::usage = "LSAMonImportFromDirectory[dirName, prefix, infix] imports an LSA object from a directory";
 
+LSAMonSetDocumentTermMatrix::usage = "LSAMonSetWeightedDocumentTermMatrix[mat] sets the document-term matrix.";
+
+LSAMonSetWeightedDocumentTermMatrix::usage = "LSAMonSetWeightedDocumentTermMatrix[mat] sets the weighted document-term matrix.";
 
 (* Document-term matrix function *)
 

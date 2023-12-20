@@ -149,7 +149,7 @@ Needs["AntonAntonov`DataReshapers`"];
 Needs["AntonAntonov`DimensionReducers`"];
 Needs["AntonAntonov`SSparseMatrix`"];
 Needs["AntonAntonov`OutlierIdentifiers`"];
-(*Needs["AntonAntonov`MonadicLatentSemanticAnalysis`DocumentTermMatrixConstruction"];*)
+(* (* Needs["AntonAntonov`MonadicLatentSemanticAnalysis`DocumentTermMatrixConstruction`"]; *) *)
 
 (***********************************************************)
 (* Automatic keys Associations                             *)
@@ -181,7 +181,7 @@ GenerateStateMonadCode[
 (**************************************************************)
 
 GenerateMonadAccessors[
-  "MonadicLatentSemanticAnalysis`LSAMon",
+  "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMon",
   {"documents", "terms", "documentTermMatrix", "weightedDocumentTermMatrix",
     "stemmingRules", "stopWords",
     "globalWeights", "globalWeightFunction", "localWeightFunction", "normalizerFunction",
@@ -189,7 +189,7 @@ GenerateMonadAccessors[
   "FailureSymbol" -> $LSAMonFailure ];
 
 GenerateMonadAccessors[
-  "MonadicLatentSemanticAnalysis`LSAMon",
+  "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMon",
   {"W", "H" },
   "FailureSymbol" -> $LSAMonFailure, "DecapitalizeElementName" -> False ];
 
