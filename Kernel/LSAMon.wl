@@ -1993,6 +1993,66 @@ LSAMonImportFromDirectory[___] :=
       $LSAMonFailure
     ];
 
+
+(*=========================================================*)
+(* Summary Box                                             *)
+(*=========================================================*)
+
+LSAMon /: MakeBoxes[obj_LSAMon, form : StandardForm] :=
+    Block[{ctx = LSAMonBind[obj, LSAMonTakeContext]},
+      BoxForm`ArrangeSummaryBox[
+        LSAMon, obj,
+        None, (*the next argument is the always visible properties*)
+        If[KeyExistsQ[ctx, "documentTermMatrix"],
+          {
+            BoxForm`SummaryItem@{"Dimensions: ", Dimensions @ ctx["documentTermMatrix"]},
+            BoxForm`SummaryItem@{"Fill in: ", N[Length[SparseArray[ctx["documentTermMatrix"]]["NonzeroValues"]] / Apply[Times, Dimensions[ctx["documentTermMatrix"]]]]}
+          },
+          (*ELSE*)
+          {BoxForm`SummaryItem@{"No document-term matrix"}}
+        ],
+        {
+          If[KeyExistsQ[ctx, "stopWords"],
+            BoxForm`SummaryItem@{"Stop words: ", Short @ ctx["stopWords"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "stemmingRules"],
+            BoxForm`SummaryItem@{"Stem rules: ", Short @ ctx["stemmingRules"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "weightedDocumentTermMatrix"],
+            BoxForm`SummaryItem@{"Weighted document-term matrix: ", Dimensions @ ctx["weightedDocumentTermMatrix"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "W"],
+            BoxForm`SummaryItem@{"Left factor: ", Dimensions @ ctx["W"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "H"],
+            BoxForm`SummaryItem@{"Right factor: ", Dimensions @ ctx["H"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "method"],
+            BoxForm`SummaryItem@{"Method: ", ctx["method"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "globalWeightFunction"],
+            BoxForm`SummaryItem@{"globalWeightFunction: ", Short @ ctx["globalWeightFunction"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "localWeightFunction"],
+            BoxForm`SummaryItem@{"localWeightFunction: ", Short @ ctx["localWeightFunction"]},
+            Nothing
+          ],
+          If[KeyExistsQ[ctx, "normalizerFunction"],
+            BoxForm`SummaryItem@{"normalizerFunction: ", Short @ ctx["normalizerFunction"]},
+            Nothing
+          ],
+          BoxForm`SummaryItem@{"Value: ", Short @ LSAMonBind[obj, LSAMonTakeValue]}
+        },
+        form]
+    ];
+
 End[]; (*`Private`*)
 
 EndPackage[]
