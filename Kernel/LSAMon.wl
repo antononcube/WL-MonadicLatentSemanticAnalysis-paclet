@@ -1054,6 +1054,7 @@ LSAMonTakeTopicsDataset[][xs_, context_] :=
 
       If[ KeyExistsQ[context, "topicsTable"],
         topicsTbl = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeTopicsTable];
+        topicsTbl = topicsTbl //. {NumberForm[x_, __] :> x};
         topicsNames = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeAutomaticTopicNames];
 
         topicsDataset = Dataset @ Flatten[MapThread[Function[{tbl, name}, Map[Append[#, name] &, tbl]], {Map[First, topicsTbl], topicsNames}], 1];
