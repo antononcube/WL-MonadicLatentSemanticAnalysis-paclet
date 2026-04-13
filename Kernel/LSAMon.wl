@@ -102,6 +102,8 @@ BeginPackage["AntonAntonov`MonadicLatentSemanticAnalysis`LSAMon`"];
 
 (*LSAMonEchoTopicsTable::usage = "Echo the a table with the extracted topics.";*)
 
+(*LSAMonTakeTopicsDataset::usage = "Take the dataset of the previously made topics table.";*)
+
 (*LSAMonGetDocuments::usage = "Get monad's document collection.";*)
 
 (*LSAMonMakeDocumentTermMatrix::usage = "Make the document-term matrix.";*)
@@ -1026,7 +1028,7 @@ LSAMonEchoTopicsTable[opts : OptionsPattern[]][xs_, context_] :=
         "topics table:"
       ];
 
-      LSAMonUnit[ topicsTbl, context ]
+      LSAMonUnit[ topicsTbl, Join[ context, <| "topicsTable" -> topicsTbl|> ] ]
     ];
 
 LSAMonEchoTopicsTable[__][___] :=
@@ -1035,6 +1037,40 @@ LSAMonEchoTopicsTable[__][___] :=
       $LSAMonFailure
     ];
 
+
+(*------------------------------------------------------------*)
+(* Topics dataset                                             *)
+(*------------------------------------------------------------*)
+Clear[LSAMonTakeTopicsDataset];
+
+SyntaxInformation[LSAMonTakeTopicsDataset] = { };
+
+LSAMonTakeTopicsDataset[___][$LSAMonFailure] := $LSAMonFailure;
+
+LSAMonTakeTopicsDataset[xs_, context_Association] := LSAMonTakeTopicsDataset[][xs, context];
+
+LSAMonTakeTopicsDataset[][xs_, context_] :=
+    Block[{topicsTbl, topicNames},
+
+      If[ KeyExistsQ[context, "topicsTable"],
+        topicsTbl = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeTopicsTable];
+        topicsNames = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeAutomaticTopicNames];
+
+        topicsDataset = Dataset @ Flatten[MapThread[Function[{tbl, name}, Map[Append[#, name] &, tbl]], {Map[First, topicsTbl], topicsNames}], 1];
+        topicsDataset = topicsDataset[All, AssociationThread[{"Weight", "Term", "Topic"}, #] &];
+
+        topicsDataset,
+        (*ELSE*)
+        Echo["Cannot find \"topicsTable\" in monad's context. Call LSAMonMakeTopicsTable first.", "LSAMonTakeTopicsDataset:"];
+        $Failed
+      ]
+    ];
+
+LSAMonTakeTopicsDataset[__][___] :=
+    Block[{},
+      Echo["No arguments and options are expected.", "LSAMonTakeTopicsDataset:"];
+      $Failed
+    ];
 
 (*------------------------------------------------------------*)
 (* Topics representation of tags                              *)

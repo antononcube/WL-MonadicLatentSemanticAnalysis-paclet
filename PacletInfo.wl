@@ -128,6 +128,7 @@ PacletObject[
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTerms",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTexts",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicColumnPositions",
+          "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicsDataset",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicsTable",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeValue",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeW",
