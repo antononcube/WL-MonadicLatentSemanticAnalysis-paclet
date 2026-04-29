@@ -1050,7 +1050,7 @@ LSAMonTakeTopicsDataset[___][$LSAMonFailure] := $LSAMonFailure;
 LSAMonTakeTopicsDataset[xs_, context_Association] := LSAMonTakeTopicsDataset[][xs, context];
 
 LSAMonTakeTopicsDataset[][xs_, context_] :=
-    Block[{topicsTbl, topicNames},
+    Block[{topicsTbl, topicsNames, topicsDataset},
 
       If[ KeyExistsQ[context, "topicsTable"],
         topicsTbl = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeTopicsTable];
