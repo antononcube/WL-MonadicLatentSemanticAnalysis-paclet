@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Anton Antonov",
     "License" -> "Artistic-2.0",
     "PublisherID" -> "AntonAntonov",
-    "Version" -> "1.0.4",
+    "Version" -> "1.0.3",
     "WolframVersion" -> "12.1+",
     "PrimaryContext" -> "AntonAntonov`MonadicLatentSemanticAnalysis`",
     "Extensions" -> {
@@ -128,7 +128,7 @@ PacletObject[
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTerms",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTexts",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicColumnPositions",
-          "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicsDataset",
+          "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicsRecords",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeTopicsTable",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeValue",
           "AntonAntonov`MonadicLatentSemanticAnalysis`LSAMonTakeW",
