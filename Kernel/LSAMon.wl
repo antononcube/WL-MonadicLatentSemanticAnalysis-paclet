@@ -102,7 +102,7 @@ BeginPackage["AntonAntonov`MonadicLatentSemanticAnalysis`LSAMon`"];
 
 (*LSAMonEchoTopicsTable::usage = "Echo the a table with the extracted topics.";*)
 
-(*LSAMonTakeTopicsDataset::usage = "Take the dataset of the previously made topics table.";*)
+(*LSAMonTakeTopicsRecords::usage = "Take the records of the previously made topics table.";*)
 
 (*LSAMonGetDocuments::usage = "Get monad's document collection.";*)
 
@@ -1039,37 +1039,35 @@ LSAMonEchoTopicsTable[__][___] :=
 
 
 (*------------------------------------------------------------*)
-(* Topics dataset                                             *)
+(* Topics records                                             *)
 (*------------------------------------------------------------*)
-Clear[LSAMonTakeTopicsDataset];
+Clear[LSAMonTakeTopicsRecords];
 
-SyntaxInformation[LSAMonTakeTopicsDataset] = { };
+SAMonTakeTopicsRecords[___][$LSAMonFailure] := $LSAMonFailure;
 
-LSAMonTakeTopicsDataset[___][$LSAMonFailure] := $LSAMonFailure;
+LSAMonTakeTopicsRecords[xs_, context_Association] := LSAMonTakeTopicsRecords[][xs, context];
 
-LSAMonTakeTopicsDataset[xs_, context_Association] := LSAMonTakeTopicsDataset[][xs, context];
-
-LSAMonTakeTopicsDataset[][xs_, context_] :=
-    Block[{topicsTbl, topicsNames, topicsDataset},
+LSAMonTakeTopicsRecords[][xs_, context_] :=
+    Module[{topicsTbl, topicsNames, topicsDataset},
 
       If[ KeyExistsQ[context, "topicsTable"],
         topicsTbl = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeTopicsTable];
         topicsTbl = topicsTbl //. {NumberForm[x_, __] :> x};
         topicsNames = LSAMonBind[LSAMonUnit[xs, context], LSAMonTakeAutomaticTopicNames];
 
-        topicsDataset = Dataset @ Flatten[MapThread[Function[{tbl, name}, Map[Append[#, name] &, tbl]], {Map[First, topicsTbl], topicsNames}], 1];
-        topicsDataset = topicsDataset[All, AssociationThread[{"Weight", "Term", "Topic"}, #] &];
+        topicsDataset = Flatten[MapThread[Function[{tbl, name}, Map[Append[#, name] &, tbl]], {Map[First, topicsTbl], topicsNames}], 1];
+        topicsDataset = Map[AssociationThread[{"Weight", "Term", "Topic"}, #] &, topicsDataset];
 
         topicsDataset,
         (*ELSE*)
-        Echo["Cannot find \"topicsTable\" in monad's context. Call LSAMonMakeTopicsTable first.", "LSAMonTakeTopicsDataset:"];
+        Echo["Cannot find \"topicsTable\" in monad's context. Call LSAMonMakeTopicsTable first.", "LSAMonTakeTopicsRecords:"];
         $Failed
       ]
     ];
 
-LSAMonTakeTopicsDataset[__][___] :=
+LSAMonTakeTopicsRecords[__][___] :=
     Block[{},
-      Echo["No arguments and options are expected.", "LSAMonTakeTopicsDataset:"];
+      Echo["No arguments and options are expected.", "LSAMonTakeTopicsRecords:"];
       $Failed
     ];
 

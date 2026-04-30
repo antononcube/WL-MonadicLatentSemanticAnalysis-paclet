@@ -24,7 +24,7 @@ LSAMonEchoDocumentTermMatrixStatistics::usage = "Echo document-term matrix stati
 
 LSAMonEchoTopicsTable::usage = "Echo the a table with the extracted topics.";
 
-LSAMonTakeTopicsDataset::usage = "Take the dataset of the previously made topics table.";
+LSAMonTakeTopicsRecords::usage = "Take the dataset of the previously made topics table.";
 
 LSAMonGetDocuments::usage = "Get monad's document collection.";
 
